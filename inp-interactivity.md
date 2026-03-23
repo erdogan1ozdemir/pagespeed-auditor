@@ -85,28 +85,33 @@ inline event handler tespiti, stylesheet sayisi ve boyutu.
 ### Asiri DOM boyutu
 **Esikler:** >800 element: dikkat, >1400 element: uyari, >1800 element: kritik.
 Max derinlik >32: uyari.
-**Cozumler:** Gereksiz wrapper div'leri kaldir, lazy rendering (content-visibility: auto),
-virtualized list (uzun listeler icin), DOM temizligi.
+**Oneriler:** Gereksiz wrapper div elementlerinin temizlenmesi onerilmektedir.
+Uzun listeler icin virtualized list yaklasimi, below-fold icerik icin
+content-visibility: auto kullanimi degerlendirilmelidir.
 **Ref:** https://web.dev/articles/dom-size-and-interactivity
 
 ### Forced reflow
-**Cozumler:** DOM okuma ve yazma islemlerini ayir. Batch DOM writes kullan.
-requestAnimationFrame icinde layout okumalari yap.
+**Oneriler:** DOM okuma ve yazma islemlerinin birbirinden ayrilmasi tavsiye edilmektedir.
+Toplu DOM yazma islemleri (batch DOM writes) kullanilmasi, layout okumalarinin
+requestAnimationFrame icinde yapilmasi performansi iyilestirecektir.
 **Ref:** https://web.dev/articles/avoid-large-complex-layouts-and-layout-thrashing
 
 ### CSS selector karmasikligi
-**Cozumler:** Derin nesting'den kacin (.a .b .c .d .e gibi). BEM veya utility-first
-yaklasim kullan. Evrensel selectorler (*) azalt.
+**Oneriler:** Derin CSS nesting'den kacinilmasi (.a .b .c .d .e gibi zincirler)
+onerilmektedir. BEM veya utility-first yaklasimin degerlendirilmesi, evrensel
+selectorlerin (*) azaltilmasi tavsiye edilmektedir.
 **Ref:** https://web.dev/articles/reduce-the-scope-and-complexity-of-style-calculations
 
 ### Kullanilmayan CSS
-**Cozumler:** Coverage analizi ile kullanilmayan kurallari tespit et ve kaldir.
-Critical CSS ayir, geri kalanini lazy yukle. PurgeCSS / uncss kullan.
+**Oneriler:** Coverage analizi ile kullanilmayan CSS kurallarinin tespit edilmesi ve
+temizlenmesi tavsiye edilmektedir. Kritik CSS'in ayrilmasi, geri kalanin lazy
+yuklenmesi onerilmektedir. PurgeCSS veya uncss gibi araclar degerlendirilmelidir.
 **Ref:** https://web.dev/articles/unused-css-rules
 
 ### content-visibility firsatlari
-**Cozumler:** Uzun sayfalarfda below-fold icerige content-visibility: auto ekle.
-contain-intrinsic-size ile tahmini boyut tanimla.
+**Oneriler:** Uzun sayfalarda below-fold icerige content-visibility: auto eklenmesi
+onerilmektedir. contain-intrinsic-size ile tahmini boyut tanimlanmasi, render
+performansini onemli olcude iyilestirecektir.
 ```css
 .below-fold-section {
   content-visibility: auto;

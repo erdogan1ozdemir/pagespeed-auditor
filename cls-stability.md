@@ -113,12 +113,14 @@ Filmstrip kareleri (PSI API'den) arasindaki farklar ile CLS gorselestirme.
 ## Bulgu kaliplari
 
 ### Boyutsuz gorseller
-**Cozumler:** Tum img/video/iframe'lere width ve height attribute ekle.
-CSS'te aspect-ratio tanimla. Container'a min-height ekle.
+**Oneriler:** Ilgili img, video ve iframe elementlerine width ve height attribute'larinin
+eklenmesi tavsiye edilmektedir. CSS tarafinda aspect-ratio taniminin yapilmasi, attribute'lar
+olmasa bile alanin onceden ayrilmasini saglayacaktir. Container elementlere min-height
+tanimlanmasi da degerlendirilebilir.
 ```html
-<!-- Mevcut -->
+<!-- Mevcut durum -->
 <img src="hero.jpg" alt="...">
-<!-- Onerilen -->
+<!-- Onerilen durum -->
 <img src="hero.jpg" alt="..." width="1200" height="675">
 ```
 ```css
@@ -127,26 +129,31 @@ CSS'te aspect-ratio tanimla. Container'a min-height ekle.
 **Ref:** https://web.dev/articles/optimize-cls
 
 ### Ad/embed slot kaymasi
-**Cozumler:** Ad container'a min-height tanimla. Placeholder/skeleton UI kullan.
-Icerik yuklenene kadar alan rezerve et.
+**Oneriler:** Reklam ve embed alanlarina min-height tanimlanmasi uygun olacaktir.
+Icerik yuklenene kadar placeholder veya skeleton UI kullanilmasi, kullanici deneyimini
+olumlu yonde etkileyecektir.
 ```css
 .ad-container { min-height: 250px; }
 ```
 **Ref:** https://web.dev/articles/optimize-cls#ads-embeds-and-iframes-without-dimensions
 
 ### Font kaymasi (FOUT)
-**Cozumler:** font-display: optional (CLS'i onler), fallback font metrik eslestirme
-(size-adjust, ascent-override, descent-override).
+**Oneriler:** font-display degerinin optional olarak ayarlanmasi, font kaymasini
+tamamen onleyecektir. Fallback font icin metrik eslestirme (size-adjust, ascent-override,
+descent-override) tanimlanmasi da faydali olacaktir. Kullanilmayan font varyantlarinin
+kaldirilmasi dosya boyutunu ve yukleme suresini azaltacaktir.
 **Ref:** https://web.dev/articles/font-display
 
 ### Dinamik inject edilen icerik
-**Cozumler:** JS ile inject edilen icerik icin onceden alan ayir.
-content-visibility: auto kullanimi degerlendir.
+**Oneriler:** JavaScript ile inject edilen icerik alanlarinin onceden boyutlandirilmasi
+onerilmektedir. content-visibility: auto kullaniminin degerlendirilmesi, ozellikle uzun
+sayfalarda performans kazanci saglayabilir.
 **Ref:** https://web.dev/articles/content-visibility
 
 ### Non-composited animasyonlar
-**Cozumler:** transform ve opacity disindaki animasyonlardan kacin.
-will-change: transform ekle. GPU-accelerated animasyonlar kullan.
+**Oneriler:** Animasyonlarda transform ve opacity disindaki CSS ozelliklerinden kacinilmasi
+tavsiye edilmektedir. will-change: transform taniminin eklenmesi, GPU-accelerated
+animasyonlara gecis yapilmasi performansi iyilestirecektir.
 **Ref:** https://web.dev/articles/animations-guide
 
 ---

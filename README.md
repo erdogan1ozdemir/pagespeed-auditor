@@ -16,7 +16,7 @@ Inbound Marketing Agency SEO ekibi icin gelistirilmis bir Claude skill'idir. Bir
 
 ```bash
 # Repository'yi klonlayin
-git clone https://github.com/erdogan1ozdemir/pagespeed-auditor.git
+git clone https://github.com/[username]/pagespeed-auditor.git
 
 # Skill dosyasini Claude Code'a ekleyin
 # Claude Code'un skill dizinine kopyalayin

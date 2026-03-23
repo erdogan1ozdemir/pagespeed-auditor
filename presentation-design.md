@@ -153,11 +153,84 @@ const STYLES = {
 - Icerik baslangic: x=0.5, y=0.8
 - Elementler arasi: 0.3-0.5 inch
 
-### Screenshot gomu
+### Screenshot ve filmstrip gomu
+
+**DIKDORTGEN goster, DAIRE/OVAL kirpma YAPMA:**
 ```javascript
-// PSI API'den gelen base64 JPEG
+// DOGRU: Dikdortgen gorsel
 slide.addImage({
   data: 'image/jpeg;base64,' + base64Data,
-  x: 0.5, y: 1.5, w: 9, h: 5
+  x: 0.5, y: 2.5, w: 4, h: 3
 });
+
+// YANLIS - YAPMA:
+// rounding: true → daire kirpma yapar
+// shape icinde oval/circle secme
+```
+
+**Filmstrip gosterimi:**
+3-5 kareyi yan yana dikdortgen olarak goster:
+```javascript
+filmstripItems.forEach((item, i) => {
+  const xPos = 0.5 + (i * 2.5);
+  slide.addImage({
+    data: 'image/jpeg;base64,' + item.data.split(',')[1],
+    x: xPos, y: 3.5, w: 2.2, h: 1.5
+  });
+  slide.addText(item.timing + 'ms', {
+    x: xPos, y: 5.1, w: 2.2, h: 0.3, fontSize: 10,
+    fontFace: 'Outfit', color: '4A4A4A', align: 'center'
+  });
+});
+```
+
+### Icerik yogunlugu
+
+**Slaytlarin alt yarisi BOS KALMAMALI.** Her slayt tipine gore doldurucu elementler:
+- Tespit: aciklama + element bilgisi + kod kutusu + screenshot
+- Etki: kullanici etkisi + metrik tablosu + Google referans kutusu
+- Cozum: oneriler + mevcut vs onerilen kod kutusu + oncelik/efor kartlari
+
+### Kod kutusu stili
+
+Mevcut ve onerilen HTML/CSS kodlarini kutu icinde goster:
+```javascript
+// Acik gri arka planli kod kutusu
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 0.5, y: posY, w: 12, h: 1.5,
+  fill: { color: 'F5F5F5' },
+  line: { color: 'E0E0E0', width: 0.5 },
+  rectRadius: 0.1
+});
+slide.addText(codeString, {
+  x: 0.7, y: posY + 0.1, w: 11.6, h: 1.3,
+  fontSize: 11, fontFace: 'Consolas', color: '1B3A36', valign: 'top'
+});
+```
+
+### Kaynak badge
+
+Her icerik slaytinin sol alt kosesine:
+```javascript
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 0.3, y: 6.8, w: 3.5, h: 0.35,
+  fill: { color: 'F4845F' }, rectRadius: 0.15
+});
+slide.addText('Kaynak: PageSpeed Insights API', {
+  x: 0.3, y: 6.8, w: 3.5, h: 0.35,
+  fontSize: 10, color: 'FFFFFF', fontFace: 'Outfit',
+  bold: true, align: 'center', valign: 'middle'
+});
+```
+
+### Insight madde formati
+
+➔ karakteri ile baslar (tire "-" veya bullet "•" KULLANMA):
+```javascript
+slide.addText([
+  { text: '➔ ', options: { color: 'F4845F', bold: true } },
+  { text: 'Anasayfada toplam ', options: { color: '1B3A36' } },
+  { text: '6 CSS dosyasının', options: { color: '1B3A36', bold: true } },
+  { text: ' geç yüklenmekte olduğu tespit edilmiştir.', options: { color: '1B3A36' } }
+], { x: 0.5, y: posY, w: 12, h: 0.5, fontSize: 13, fontFace: 'Outfit' });
 ```

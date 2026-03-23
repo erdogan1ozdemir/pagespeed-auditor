@@ -132,36 +132,45 @@ duplicate ID tespiti, HTTPS kontrolu (URL'den).
 ## Bulgu kaliplari
 
 ### Alt attribute eksik
-**Cozumler:** Icerikli gorsellere aciklayici alt metni ekle.
-Dekoratif gorsellere `alt=""` ve `role="presentation"` ekle.
+**Oneriler:** Icerikli gorsellere aciklayici ve anlamli alt metni eklenmesi onerilmektedir.
+Dekoratif gorsellere `alt=""` ve `role="presentation"` tanimlanmasi, ekran okuyucularin
+bu gorselleri atlamasini saglayacaktir.
 **Ref:** https://web.dev/articles/image-alt
 
 ### Renk kontrast yetersizligi
-**Cozumler:** WCAG AA: normal metin 4.5:1, buyuk metin 3:1 minimum kontrast.
-Renk paleti guncelle veya font boyutunu artir.
+**Oneriler:** WCAG AA standartlarina gore normal metin icin 4.5:1, buyuk metin icin
+3:1 minimum kontrast oraninin saglanmasi gerekmektedir. Renk paletinin guncellenmesi
+veya font boyutunun arttirilmasi degerlendirilmelidir.
 **Ref:** https://web.dev/articles/color-contrast
 
 ### Heading hiyerarsisi bozuk
-**Cozumler:** h1→h2→h3 sirasini koru, seviye atlama. Her sayfada tek h1.
+**Oneriler:** h1, h2, h3 sirasinin korunmasi ve seviye atlanmamasi onerilmektedir.
+Her sayfada tek bir h1 elementi bulunmasi, hem erisilebilirlik hem de SEO acisindan
+onemlidir.
 **Ref:** https://web.dev/articles/heading-order
 
 ### ARIA hatalari
-**Cozumler:** Gereksiz ARIA kaldir (native HTML yeterli oldugunda).
-ARIA rolleri ve attributeleri dogru eslestir.
+**Oneriler:** Native HTML'in yeterli oldugu durumlarda gereksiz ARIA attribute'larinin
+kaldirilmasi tavsiye edilmektedir. Kullanilan ARIA rolleri ve attribute'larinin
+spesifikasyona uygun eslestirmesinin kontrolu onerilmektedir.
 **Ref:** https://web.dev/articles/aria
 
 ### Form label eksik
-**Cozumler:** Her input'a iliskili label ekle (for/id eslesmesi veya wrapping).
-Placeholder, label'in yerini almaz.
+**Oneriler:** Her form alanina iliskili label elementinin eklenmesi (for/id eslesmesi
+veya label icine yerlestirme) onerilmektedir. Placeholder attribute'unun label'in
+yerini almadigi unutulmamalidir.
 **Ref:** https://web.dev/articles/label
 
 ### HTTPS eksik
-**Cozumler:** SSL sertifikasi ekle, HTTP→HTTPS redirect. Mixed content temizle.
+**Oneriler:** SSL sertifikasinin eklenmesi ve HTTP'den HTTPS'e yonlendirme yapilmasi
+onerilmektedir. Mixed content (HTTP uzerinden yuklenen kaynaklar) temizlenmesi
+gerekmektedir.
 **Ref:** https://web.dev/articles/is-on-https
 
 ### Console hatalari
-**Cozumler:** Her hatayi tespit et ve ilgili kodu duzelt. 3rd party kaynakli hatalari
-raporla. 404 kaynak hatalari icin URL'leri duzelt.
+**Oneriler:** Tespit edilen console hatalarinin incelenmesi ve ilgili kodun duzeltilmesi
+tavsiye edilmektedir. Ucuncu parti kaynakli hatalarin ilgili servis saglayicilara
+raporlanmasi, 404 donduren kaynak URL'lerinin guncellenmesi onerilmektedir.
 
 ---
 

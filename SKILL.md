@@ -187,11 +187,55 @@ Temel kurallar:
 
 ### Filmstrip ve screenshot gomu
 
-PSI API'den gelen base64 JPEG sunuma gomulur:
+PSI API'den gelen base64 JPEG sunuma gomulur. DIKDORTGEN gosterilir, DAIRE veya OVAL KIRPMA YAPMA:
 ```javascript
+// DOGRU: Dikdortgen gorsel
 slide.addImage({
   data: 'image/jpeg;base64,' + base64Data,
-  x: 0.5, y: 1.5, w: 9, h: 5
+  x: 0.5, y: 2.5, w: 4, h: 3
+});
+
+// YANLIS: Daire kirpma - YAPMA
+// rounding: true veya shape: 'OVAL' KULLANMA
+```
+
+Filmstrip: 3-5 kareyi yan yana dikdortgen olarak goster. Her karenin altina zamanlama yaz (830ms, 4150ms vb.).
+
+### Icerik yogunlugu kurali (BOS ALAN BIRAKILMAZ)
+
+Slaytlarin alt yarisi BOS KALMAMALI. Icerik tum slayti kaplamali:
+- Metin yeterli degilse: gorsel, screenshot, tablo veya ek aciklama ekle
+- Tespit slaytinda: screenshot kaniti, filmstrip, etkilenen element gorseli ekle
+- Etki slaytinda: metrik karsilastirma tablosu, Google referans kutusu ekle
+- Cozum slaytinda: mevcut vs onerilen kod karsilastirmasi kutu icinde, efor/oncelik kartlari ekle
+- Bos alan kaliyorsa: ek not, ipucu veya ilgili kaynak linki ekle
+- Her slaytta en az 1 gorsel element olmali (tablo, chart, screenshot, kod kutusu vb.)
+
+### Kaynak badge
+
+Her icerik slaytinin sol alt kosesine coral pill badge ekle:
+```javascript
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 0.3, y: 6.8, w: 3.5, h: 0.35, fill: { color: 'F4845F' }, rectRadius: 0.15
+});
+slide.addText('Kaynak: PageSpeed Insights API', {
+  x: 0.3, y: 6.8, w: 3.5, h: 0.35, fontSize: 10, color: 'FFFFFF',
+  fontFace: 'Outfit', bold: true, align: 'center', valign: 'middle'
+});
+```
+
+### Kod bloklari
+
+Mevcut ve onerilen HTML/CSS kodlarini acik gri arka planli kutu icinde goster:
+```javascript
+// Kod kutusu
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 0.5, y: 3.5, w: 12, h: 1.5, fill: { color: 'F5F5F5' },
+  line: { color: 'E0E0E0', width: 0.5 }, rectRadius: 0.1
+});
+slide.addText(codeContent, {
+  x: 0.7, y: 3.6, w: 11.6, h: 1.3, fontSize: 11,
+  fontFace: 'Consolas', color: '1B3A36', valign: 'top'
 });
 ```
 
@@ -202,36 +246,52 @@ KAPAK (coral)
 GENEL DEGERLENDIRME (skor tablosu + ozet paragraf)
 METRIK ACIKLAMA NOTU (IT ekibi icin)
 
-HER SAYFA TIPI x CIHAZ ICIN:
+HER SAYFA TIPI x CIHAZ ICIN (ornek: Anasayfa Mobil, Anasayfa Desktop, Urun Mobil...):
   BOLUM AYIRACI (dark teal, numarali)
   SKOR KARTI + FILMSTRIP
 
-  HER BULGU ICIN:
+  HER BULGU ICIN AYRI SLAYTLAR (tek slaytta birlestirme YAPMA):
     TESPIT SLAYTI
-      - Ne tespit edildi
-      - Etkilenen element (selector)
-      - HTML referansi (mevcut kod)
-      - Screenshot veya filmstrip kaniti
     ETKI SLAYTI
-      - Kullanici deneyimi etkisi
-      - Metrik etkisi (sayisal)
-      - Diger metriklere etkisi
-      - Google referansi
     COZUM ONERISI SLAYTI
-      - Onerilen adimlar
-      - Mevcut vs onerilen kod
-      - Beklenen iyilesme
-      - Efor + oncelik + sorumluluk
 
 OZET AKSIYON TABLOSU (sayfa x bulgu matrisi)
 ONCELIK SIRALAMASI / YOL HARITASI
 KAPATIS (coral, tesekkurler)
 ```
 
-### Excel referansi notu
+ONEMLI KURALLAR:
+- Her sayfa tipi icin mobil ve desktop AYRI AYRI analiz edilir ve ayri bolumler halinde sunulur
+- Urun ve kategori sayfalarindaki bulgular da AYRI SLAYTLARDA gosterilir, tek slaytta birlestirilMEZ
+- Her bulgu icin 2-3 slayt kullanilir (tespit + etki + cozum). Basit bulgularda etki ve cozum birlesebilir
+- Ortak sorunlar (CSS, font vb.) her sayfada tekrarlanmaz, ilk goruldugu yerde detayli anlatilir,
+  diger sayfalarda "Anasayfa bolumunde detaylanan CSS optimizasyonu bu sayfa icin de gecerlidir" denir
 
-Detayli veri gerektiren slaytlarin alt kismina not ekle:
-"Detayli veri icin: [dosya].xlsx, [Sheet] sayfasi, satir [X-Y]"
+### Tespit slayti icerigi (dolu olmali)
+
+Slayt iceriginin tum slayti kaplamasi icin su elementler bulunmali:
+- Breadcrumb (sol ust, coral)
+- Baslik (dark teal, buyuk)
+- 2-3 paragraf aciklama metni (➔ ile baslayan maddeler)
+- Etkilenen element bilgisi (CSS selector, coral metin)
+- Mevcut HTML kod kutusu (acik gri arka plan, monospace font)
+- Screenshot veya filmstrip kaniti (dikdortgen gorsel)
+- Kaynak badge (sol alt)
+
+### Etki slayti icerigi
+
+- Kullanici deneyimi etkisi (en az 2-3 cumle)
+- Metrik etkisi (sayisal, tablolu)
+- Diger metriklere etkisi
+- Google referansi (web.dev linki, coral metin)
+
+### Cozum onerisi slayti icerigi
+
+- Onerilen adimlar (numarali, her biri 2-3 cumle)
+- Mevcut vs onerilen kod karsilastirmasi (2 kod kutusu yan yana veya ust uste)
+- Beklenen iyilesme degeri (yesil renk)
+- Oncelik / Efor / Sorumluluk kartlari (3 kart yan yana)
+- Excel referans notu (spesifik: "dosya.xlsx, Sheet Adi sayfasi, satir X-Y")
 
 ---
 
@@ -277,20 +337,78 @@ Tam audit: vitra.com.tr_pagespeed-audit_2026-03-18.pptx
 
 - Varsayilan dil: Turkce (kullanici belirtmezse)
 - EN veya DE istenirse tum ciktilar o dilde
-- **TURKCE KARAKTERLER (c, g, i, o, s, u, I) ORIJINAL KULLLANILIR**
-- ASCII'ye cevrilmez. pptxgenjs ve openpyxl UTF-8 destekler.
+
+### TURKCE KARAKTER KURALI (EN KRITIK KURAL)
+
+Bu skill'in urettigi PPTX ve Excel dosyalarindaki TUM metinler Turkce ozel karakterleri
+ORIJINAL HALLERIYLE icermek ZORUNDADIR. ASCII'ye cevirme KESINLIKLE YAPILMAZ.
+
+pptxgenjs ve openpyxl UTF-8'i sorunsuz destekler. Turkce karakter donusumu gerektiren
+HICBIR islem yapma. String'leri oldugu gibi kullan.
+
+Dogru ornekler (sunumda boyle gorunmeli):
+- "Değerlendirme" ("Degerlendirme" DEGIL)
+- "Yükleme Süreci" ("Yukleme Sureci" DEGIL)
+- "Çözüm Önerisi" ("Cozum Onerisi" DEGIL)
+- "Öncelik: Yüksek" ("Oncelik: Yuksek" DEGIL)
+- "İyileştirme" ("Iyilestirme" DEGIL)
+- "Kararlılığı" ("Kararliligi" DEGIL)
+- "Görsel" ("Gorsel" DEGIL)
+- "Düşük" ("Dusuk" DEGIL)
+- "Ürün Sayfası" ("Urun Sayfasi" DEGIL)
+
+Kontrol: cikti dosyasini olusturduktan sonra markitdown ile oku ve Turkce karakter
+icerip icermedigini dogrula. Tek bir bile ASCII-ye donusturulmus karakter varsa duzelt.
 
 ---
 
 ## 10. Uslup
 
-IT ekibine yonelik profesyonel danismanlik raporu tonu:
+IT ekibine yonelik profesyonel danismanlik raporu tonu. Yumusak, kurumsal ve is birligi odakli.
 
-Kullan: "bulgu", "tespit", "iyilestirme firsati", "degerlendirme",
-"onerulmektedir", "degerlendirilmesi uygun olacaktir", "ele alinmasi tavsiye edilmektedir"
+### Yasak ifadeler → dogru karsiliklari
 
-Kullanma: "sorun", "hata", "eksiklik", "bozuk" (sert ifadeler),
-"duzeltin", "yapin" (emir kipi), genel gecer bilgiler (her oneri gercek HTML'e dayanmali)
+| YANLIS (kullanma) | DOGRU (kullan) |
+|---|---|
+| "Sorun: görsellerde width/height yok" | "Hero slider görsellerinde boyut tanımı bulunmamaktadır" |
+| "Bu CLS'i bozuyor" | "Bu durum CLS değerini olumsuz yönde etkileyebilmektedir" |
+| "Hemen düzeltin" | "İlgili düzenlemenin kısa vadede ele alınması önerilmektedir" |
+| "CSS'i inline yerleştirin" | "Kritik CSS'in inline olarak yerleştirilmesi değerlendirilebilir" |
+| "Font'u preload ile yükleyin" | "İlgili font dosyasının preload ile ön yüklenmesi tavsiye edilmektedir" |
+| "Kullanılmayan CSS'i kaldırın" | "Kullanılmayan CSS kurallarının temizlenmesi faydalı olacaktır" |
+| "Sorun", "hata", "eksiklik", "bozuk" | "Bulgu", "tespit", "iyileştirme fırsatı", "değerlendirme" |
+| "Düzeltin", "yapın", "ekleyin" (emir kipi) | "...önerilmektedir", "...değerlendirilebilir", "...tavsiye edilmektedir" |
+
+### Insight madde formati
+
+Her insight maddesi ➔ karakteri ile baslar (tire "-" veya bullet "•" KULLANMA):
+```
+➔ Anasayfada toplam 6 CSS dosyasının geç yüklenmekte olduğu tespit edilmiştir.
+  Bu durum, tüm sayfa düzeni üzerinde büyük çaplı kaymaya neden olmaktadır.
+
+➔ İncelenen dönemde CLS değerinin 0.356 olduğu görülmektedir. Google'ın
+  belirlediği 0.1 eşik değerinin üzerinde yer almaktadır.
+```
+
+### Aciklama derinligi kurali
+
+Her tespit slaytinda EN AZ su bilgiler olmali:
+- Ne tespit edildi (2-3 cumle)
+- Hangi element etkileniyor (CSS selector + boyut bilgisi)
+- Neden olusuyor (teknik aciklama, 2-3 cumle)
+- Mevcut HTML kodu (gercek sayfadan alinmis)
+
+Her etki slaytinda EN AZ su bilgiler olmali:
+- Kullanici deneyimi etkisi (3-4 cumle, somut senaryo)
+- Metrik etkisi (sayisal: "CLS'e +0.351 katki, toplam degerin %98'i")
+- Diger metriklere etkisi (varsa)
+- Google referansi (web.dev linki)
+
+Her cozum slaytinda EN AZ su bilgiler olmali:
+- 2-4 numarali oneri adimi (her biri 2-3 cumle aciklama)
+- Mevcut vs onerilen kod karsilastirmasi
+- Beklenen iyilesme degeri
+- Oncelik + efor + sorumluluk bilgisi
 
 ---
 

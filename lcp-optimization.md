@@ -116,26 +116,34 @@ srcset, sizes, alt attribute'lari. picture/source elementleri. Gorsel format tes
 ## Bulgu kaliplari
 
 ### LCP gorseli lazy loaded
-**Cozumler:** Above-fold LCP gorselinden loading="lazy" kaldir. fetchpriority="high" ekle.
+**Oneriler:** Above-fold konumundaki LCP gorselinden loading="lazy" attribute'unun
+kaldirilmasi onerilmektedir. fetchpriority="high" attribute'u eklenerek tarayicinin
+bu gorseli oncelikli olarak yuklemesi saglanabilir.
 **Ref:** https://web.dev/articles/lcp-lazy-loading
 
 ### fetchpriority eksik
-**Cozumler:** LCP gorselive `fetchpriority="high"` ekle. Preload link'e de fetchpriority ekle.
+**Oneriler:** LCP gorsel elementine fetchpriority="high" attribute'u eklenmesi tavsiye
+edilmektedir. Eger preload link kullaniliyorsa, preload'a da fetchpriority eklenmesi
+uygun olacaktir.
 **Ref:** https://web.dev/articles/fetch-priority
 
 ### Gorsel format (WebP/AVIF)
-**Cozumler:** picture elementi ile WebP/AVIF serve et, fallback olarak JPEG/PNG.
-CDN uzerinden otomatik format donusumu (Cloudinary, imgix, Cloudflare).
+**Oneriler:** Gorsellerin picture elementi ile WebP veya AVIF formatinda sunulmasi,
+JPEG/PNG'nin fallback olarak korunmasi onerilmektedir. CDN uzerinden otomatik format
+donusumu (Cloudinary, imgix, Cloudflare Images) degerlendirilmelidir.
 **Ref:** https://web.dev/articles/serve-images-webp
 
 ### Boyut uyumsuzlugu (intrinsic vs display)
-**Cozumler:** Gorselleri display boyutuna uygun serve et. srcset ile farkli boyutlar sun.
-CDN image resize kullan.
+**Oneriler:** Gorsellerin display boyutuna uygun boyutta sunulmasi, gereksiz boyut
+aktariminin onlenmesi tavsiye edilmektedir. srcset attribute'u ile farkli viewport
+boyutlarina uygun gorsel boyutlarinin tanimlanmasi, CDN image resize kullaniminin
+degerlendirilmesi onerilmektedir.
 **Ref:** https://web.dev/articles/serve-responsive-images
 
 ### Below-fold lazy loading eksik
-**Cozumler:** Viewport disindaki tum gorsellere loading="lazy" ekle.
-Above-fold gorsellerde lazy OLMAMALI.
+**Oneriler:** Viewport disindaki tum gorsellere loading="lazy" attribute'u eklenmesi
+onerilmektedir. Onemli not: Above-fold gorsellerde lazy loading kullanilmamalidir,
+bu durum LCP'yi olumsuz etkileyecektir.
 **Ref:** https://web.dev/articles/browser-level-image-lazy-loading
 
 ---

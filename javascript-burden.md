@@ -91,23 +91,27 @@ noscript icerigi (SSR tespiti), 3rd party script domainleri.
 ## Bulgu kaliplari
 
 ### 3rd party script yuku
-**Cozumler:** Gereksiz scriptleri kaldir, gerekli olanlari defer/async yap,
-facade pattern (ornegin YouTube embed yerine onizleme gorseli + click ile yukle),
-script bagimsizligi icin self-hosted alternatifleri degerlendir.
+**Oneriler:** Kullanilmayan ucuncu parti scriptlerin kaldirilmasi onerilmektedir.
+Gerekli olan scriptlerin defer veya async ile yuklenmesi degerlendirilebilir.
+Facade pattern uygulanmasi (ornegin YouTube embed yerine onizleme gorseli kullanimi,
+tiklandiginda gercek player yuklemesi) kaynak tuketimini onemli olcude azaltacaktir.
 **Ref:** https://web.dev/articles/third-party-summary
 
 ### Kullanilmayan JavaScript
-**Cozumler:** Code coverage analizi (Chrome DevTools), tree-shaking, code-splitting,
-dynamic import ile lazy load, webpack-bundle-analyzer ile gorsel analiz.
+**Oneriler:** Code coverage analizi ile kullanilmayan kodun tespit edilmesi ve temizlenmesi
+tavsiye edilmektedir. Tree-shaking ve code-splitting uygulanmasi, dynamic import ile
+lazy loading stratejisi degerlendirilmelidir.
 **Ref:** https://web.dev/articles/unused-javascript
 
 ### Script defer/async eksikligi
-**Cozumler:** Non-critical scriptlere defer ekle, bagimli olmayan scriptlere async ekle,
-ES module kullanimi (type="module" otomatik defer).
+**Oneriler:** Kritik olmayan scriptlere defer attribute'u eklenmesi onerilmektedir.
+Birbirinden bagimsiz scriptler icin async kullanimi uygun olacaktir.
+ES module kullanimi (type="module") otomatik defer davranisi saglayacaktir.
 
 ### CSR/SSR etkisi
-**Cozumler:** SSR veya SSG degerlendir, kritik icerik server-side render edilmeli,
-hydration overhead'i azalt (partial hydration, progressive enhancement).
+**Oneriler:** Server-side rendering (SSR) veya static site generation (SSG) yaklasimlarinin
+degerlendirilmesi onerilmektedir. Kritik icerigin sunucu tarafinda render edilmesi,
+hydration overhead'inin partial hydration ile azaltilmasi faydali olacaktir.
 
 ---
 

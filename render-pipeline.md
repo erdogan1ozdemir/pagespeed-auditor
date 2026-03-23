@@ -86,28 +86,38 @@ stylesheet ve script (defer/async olmayan) tespiti, meta http-equiv redirect.
 ## Bulgu kaliplari
 
 ### TTFB yavasi
-**Cozumler:** Sunucu cache (Redis/Varnish/CDN edge), redirect zinciri kisaltma,
-Brotli/gzip, CDN, veritabani optimizasyonu.
+**Oneriler:** Sunucu tarafinda cache mekanizmasi (Redis, Varnish, CDN edge cache) kullanilmasi
+onerilmektedir. Redirect zincirlerinin kisaltilmasi, Brotli/gzip compression'in aktif edilmesi
+ve CDN kullaniminin degerlendirilmesi yanitlama suresini iyilestirecektir.
 **Ref:** https://web.dev/articles/ttfb
 
 ### Render-blocking kaynaklar
-**Cozumler:** Critical CSS inline, JS defer, non-critical CSS media attribute ile defer.
+**Oneriler:** Above-the-fold icerigi icin gereken kritik CSS'in inline olarak yerlestirilmesi
+tavsiye edilmektedir. JavaScript dosyalarina defer attribute'u eklenmesi, kritik olmayan CSS'in
+media attribute ile asenkron yuklenmesi degerlendirilebilir.
 **Ref:** https://web.dev/articles/render-blocking-resources
 
 ### Cache yetersizligi
-**Cozumler:** Statik: max-age=31536000 + immutable + fingerprint. HTML: max-age=3600.
+**Oneriler:** Statik kaynaklar icin uzun sureli cache (max-age=31536000, immutable) ve
+dosya adi fingerprinting uygulanmasi onerilmektedir. HTML dokumanlari icin daha kisa
+sureli cache (max-age=3600) yeterli olacaktir.
 **Ref:** https://web.dev/articles/uses-long-cache-ttl
 
 ### HTTP/2-3 eksikligi
-**Cozumler:** Sunucu/CDN'de HTTP/2 aktif et, HTTP/3 icin Cloudflare/Fastly.
+**Oneriler:** Sunucu veya CDN konfigurasyonunda HTTP/2 desteginin aktif edilmesi tavsiye
+edilmektedir. HTTP/3 (QUIC) destegi icin Cloudflare veya Fastly gibi CDN cozumleri
+degerlendirilebilir.
 **Ref:** https://web.dev/articles/performance-http2
 
 ### Font gorunurluk
-**Cozumler:** font-display: swap veya optional, font preload, subset, fallback font metrik eslestirme (size-adjust).
+**Oneriler:** Font-display degerinin swap veya optional olarak ayarlanmasi, kritik fontlarin
+preload ile on yuklenmesi ve font subset kullanilmasi onerilmektedir. Fallback font icin
+metrik eslestirme (size-adjust) tanimlanmasi da CLS'i azaltacaktir.
 **Ref:** https://web.dev/articles/font-display
 
 ### Preconnect/dns-prefetch eksik
-**Cozumler:** Ucuncu parti domainlere preconnect ekle:
+**Oneriler:** Ucuncu parti kaynaklarin bulundugu domainlere preconnect tanimlanmasi,
+baglanti kurulma suresini kisaltacaktir:
 `<link rel="preconnect" href="https://cdn.example.com" crossorigin>`
 **Ref:** https://web.dev/articles/uses-rel-preconnect
 
