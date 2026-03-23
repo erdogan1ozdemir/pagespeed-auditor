@@ -1,15 +1,15 @@
 # Sub-skill 3: LCP Optimizasyonu
 
-LCP element kesfi, faz analizi, gorsel format/boyut, srcset, lazy/preload stratejisi.
+LCP element kesfi, faz analizi, görsel format/boyut, srcset, lazy/preload stratejisi.
 
-## Lighthouse audit eslestirme
+## Lighthouse audit eşleştirme
 
 | Insight Audit ID | Kontrol alani |
 |---|---|
 | lcp-discovery-insight | fetchpriority, lazy loading, preload, HTML kesfedilebilirlik |
 | lcp-phases-insight | TTFB → load delay → load duration → render delay |
-| image-delivery-insight | WebP/AVIF, sikistirma, responsive boyut, animasyonlu icerik |
-| total-byte-weight | Toplam sayfa agirligi |
+| image-delivery-insight | WebP/AVIF, sikistirma, responsive boyut, animasyonlu içerik |
+| total-byte-weight | Toplam sayfa ağırlığı |
 
 Ek kontroller: intrinsic vs display boyut, srcset/sizes dogrulugu,
 below-fold lazy loading eksikligi, above-fold lazy loading hatasi.
@@ -19,9 +19,9 @@ below-fold lazy loading eksikligi, above-fold lazy loading hatasi.
 ```
 audits['lcp-discovery-insight']        → fetchpriority, lazy, preload kontrol
 audits['lcp-phases-insight']           → LCP element bilgisi + faz breakdown
-audits['image-delivery-insight']       → Gorsel format/boyut onerileri
+audits['image-delivery-insight']       → Görsel format/boyut onerileri
 audits['total-byte-weight']
-audits['final-screenshot']             → LCP gorsel kaniti
+audits['final-screenshot']             → LCP görsel kaniti
 audits['screenshot-thumbnails']        → Filmstrip
 loadingExperience.metrics.LARGEST_CONTENTFUL_PAINT_MS → Field LCP
 ```
@@ -61,7 +61,7 @@ if (el && el.tagName === 'IMG') {
 }
 ```
 
-**Tum gorsellerin attribute taramasi:**
+**Tum görsellerin attribute taramasi:**
 ```javascript
 const imgs = Array.from(document.querySelectorAll('img'));
 const audit = imgs.map(img => {
@@ -83,7 +83,7 @@ const audit = imgs.map(img => {
     format: img.src.match(/\.(webp|avif|jpg|jpeg|png|gif|svg)(\?|$)/i)?.[1] || 'unknown'
   };
 });
-// Sampling yapma - tum gorseller taranir
+// Sampling yapma - tum görseller taranir
 ```
 
 **Boyut waste analizi:**
@@ -108,41 +108,41 @@ LCP element tespiti. on_page_lighthouse (full_data: true) ile LCP faz breakdown.
 ## web_fetch kontrolleri (Chrome ve DataForSEO yoksa)
 
 HTML'den: tum img tagleri parse et - src, loading, fetchpriority, width, height,
-srcset, sizes, alt attribute'lari. picture/source elementleri. Gorsel format tespiti
+srcset, sizes, alt attribute'lari. picture/source elementleri. Görsel format tespiti
 (URL uzantisidan).
 
 ---
 
 ## Bulgu kaliplari
 
-### LCP gorseli lazy loaded
-**Oneriler:** Above-fold konumundaki LCP gorselinden loading="lazy" attribute'unun
-kaldirilmasi onerilmektedir. fetchpriority="high" attribute'u eklenerek tarayicinin
-bu gorseli oncelikli olarak yuklemesi saglanabilir.
+### LCP görseli lazy loaded
+**Öneriler:** Above-fold konumundaki LCP görselinden loading="lazy" attribute'unun
+kaldırılması önerilmektedir. fetchpriority="high" attribute'u eklenerek tarayıcınin
+bu görseli öncelikli olarak yüklemesi sağlanabilir.
 **Ref:** https://web.dev/articles/lcp-lazy-loading
 
 ### fetchpriority eksik
-**Oneriler:** LCP gorsel elementine fetchpriority="high" attribute'u eklenmesi tavsiye
+**Öneriler:** LCP görsel elementine fetchpriority="high" attribute'u eklenmesi tavsiye
 edilmektedir. Eger preload link kullaniliyorsa, preload'a da fetchpriority eklenmesi
-uygun olacaktir.
+uygun olacaktır.
 **Ref:** https://web.dev/articles/fetch-priority
 
-### Gorsel format (WebP/AVIF)
-**Oneriler:** Gorsellerin picture elementi ile WebP veya AVIF formatinda sunulmasi,
-JPEG/PNG'nin fallback olarak korunmasi onerilmektedir. CDN uzerinden otomatik format
-donusumu (Cloudinary, imgix, Cloudflare Images) degerlendirilmelidir.
+### Görsel format (WebP/AVIF)
+**Öneriler:** Görsellerin picture elementi ile WebP veya AVIF formatinda sunulmasi,
+JPEG/PNG'nin fallback olarak korunmasi önerilmektedir. CDN uzerinden otomatik format
+donusumu (Cloudinary, imgix, Cloudflare Images) değerlendirilmelidir.
 **Ref:** https://web.dev/articles/serve-images-webp
 
 ### Boyut uyumsuzlugu (intrinsic vs display)
-**Oneriler:** Gorsellerin display boyutuna uygun boyutta sunulmasi, gereksiz boyut
+**Öneriler:** Görsellerin display boyutuna uygun boyutta sunulmasi, gereksiz boyut
 aktariminin onlenmesi tavsiye edilmektedir. srcset attribute'u ile farkli viewport
-boyutlarina uygun gorsel boyutlarinin tanimlanmasi, CDN image resize kullaniminin
-degerlendirilmesi onerilmektedir.
+boyutlarina uygun görsel boyutlarinin tanımlanmasi, CDN image resize kullanımınin
+değerlendirilmesi önerilmektedir.
 **Ref:** https://web.dev/articles/serve-responsive-images
 
 ### Below-fold lazy loading eksik
-**Oneriler:** Viewport disindaki tum gorsellere loading="lazy" attribute'u eklenmesi
-onerilmektedir. Onemli not: Above-fold gorsellerde lazy loading kullanilmamalidir,
+**Öneriler:** Viewport disindaki tum görsellere loading="lazy" attribute'u eklenmesi
+önerilmektedir. Önemli not: Above-fold görsellerde lazy loading kullanilmamalidir,
 bu durum LCP'yi olumsuz etkileyecektir.
 **Ref:** https://web.dev/articles/browser-level-image-lazy-loading
 
@@ -151,27 +151,27 @@ bu durum LCP'yi olumsuz etkileyecektir.
 ## Sunum slayt sablonu
 
 ### Skor karti
-- LCP field degeri (good/needs improvement/poor)
+- LCP field değeri (good/needs improvement/poor)
 - LCP element screenshot'i (final-screenshot + element bbox isaretli)
 - Filmstrip
 
 ### LCP faz breakdown slayti
 - TTFB → resource load delay → resource load duration → render delay
-- Bar chart ile faz dagilimi gorseli
+- Bar chart ile faz dagilimi görseli
 - Hangi faz darbogaz? vurgusu
 
-### Gorsel envanter slayti (onemli bulgularda)
-- Above-fold gorseller tablosu: format, boyut, lazy, fetchpriority, width/height
-- Boyut waste ozetli
+### Görsel envanter slayti (önemli bulgularda)
+- Above-fold görseller tablosu: format, boyut, lazy, fetchpriority, width/height
+- Boyut waste özetli
 
-### Bulgu slaytlari (tespit → etki → cozum) her bulgu icin
+### Bulgu slaytlari (tespit → etki → çözüm) her bulgu icin
 
 ---
 
 ## Excel sheet yapisi
 
 Sheet adi: "LCP Optimizasyonu"
-Sutunlar: Sayfa Tipi | Cihaz | Bulgu | Element (selector) | Gorsel URL |
-Mevcut Format | Onerilen Format | Natural Boyut | Display Boyut | Boyut Waste % |
-loading Attr | fetchpriority Attr | width/height | srcset | Onerilen Aksiyon |
-LCP Faz Etkisi | Oncelik | Efor | Sorumluluk | Durum
+Sutunlar: Sayfa Tipi | Cihaz | Bulgu | Element (selector) | Görsel URL |
+Mevcut Format | Önerilen Format | Natural Boyut | Display Boyut | Boyut Waste % |
+loading Attr | fetchpriority Attr | width/height | srcset | Önerilen Aksiyon |
+LCP Faz Etkisi | Öncelik | Efor | Sorumluluk | Durum

@@ -1,216 +1,405 @@
-# Sunum Tasarim Rehberi (pptxgenjs icin)
+# Sunum Tasarım Rehberi
 
-Tutarli ve profesyonel sunumlar uretmek icin tasarim kurallari.
+Inbound Marketing Agency sunum tasarım standartları. Referans görseller baz alınmıştır.
 
 ---
 
 ## 1. Renk paleti
 
-### Ana renkler
-
-| Renk | HEX | Kullanim |
+| Renk | HEX | Kullanım |
 |---|---|---|
-| Coral/Salmon | #F4845F | Kapak, kapatis, breadcrumb, ikonlar |
-| Dark Teal | #1B3A36 | Bolum ayiraci, baslik metni, govde metin |
-| Off-White/Cream | #FAF8F5 | Icerik slide arka plani |
-| White | #FFFFFF | Kapak/kapatis metin, kart arka plani |
-
-### Veri gorsellestirme renkleri
-
-| Renk | HEX | Kullanim |
-|---|---|---|
-| Kirmizi (dusus) | #D32F2F | Negatif degisim, poor metrikler |
-| Yesil (artis) | #2E7D32 | Pozitif degisim, good metrikler |
-| Turuncu (vurgu) | #F4845F | Insight vurgulari |
-| Koyu gri (bar) | #4A4A4A | Bar chart mevcut donem |
-| Sari/altin (bar) | #F5A623 | Bar chart onceki donem |
-| Acik kirmizi hucre | #FFCDD2 | Tablo negatif deger arka plani |
-| Acik yesil hucre | #C8E6C9 | Tablo pozitif deger arka plani |
-
-### Heat-map renklendirme
-
-- Negatif: hucre #FFCDD2, metin #D32F2F
-- Pozitif: hucre #C8E6C9, metin #2E7D32
-- Notr: beyaz arka plan, dark teal metin
+| Coral | F4845F | Kapak, kapanış, breadcrumb, vurgu çizgileri |
+| Dark Teal | 1B3A36 | Separator arka plan, başlık metni, gövde metin |
+| Off-White | FAF8F5 | İçerik slide arka planı |
+| White | FFFFFF | Kapak/separator metin, kart arka plan |
+| Separator Numara | 2A4E48 | Separator'daki büyük numara (dark teal'den biraz açık) |
+| Kırmızı | D32F2F | Negatif değer, poor metrik |
+| Yeşil | 2E7D32 | Pozitif değer, good metrik |
+| Açık Kırmızı | FFCDD2 | Tablo negatif hücre arka planı |
+| Açık Yeşil | C8E6C9 | Tablo pozitif hücre arka planı |
+| Koyu Gri | 4A4A4A | Tablo bar, gövde metin alternatif |
 
 ---
 
-## 2. Slide tipleri
+## 2. Slide tipleri (referans görsellerden)
 
-### Kapak slide
-- Arka plan: Coral (#F4845F)
-- Metin: Beyaz (#FFFFFF)
-- Baslik: Ortalanmis, buyuk punto, bold
-- Alt baslik/tarih: Basligin altinda, kucuk punto
+### 2.1 Kapak slide
 
-### Bolum ayiraci (separator)
-- Arka plan: Dark Teal (#1B3A36)
-- Buyuk numara: Sol tarafta 120-180pt, biraz acik ton (#2A4E48)
-- Baslik: Ortada, beyaz, bold
-- Coral cizgi: Basligin ust/altinda kisa yatay coral cizgi (#F4845F, ~60px)
+Referans: Image 1 - VitrA SEO Değerlendirme
 
-### Icerik slide
-- Arka plan: Off-White (#FAF8F5)
-- Breadcrumb: Sol ust, coral renk, "Bolum Adi | Slide Basligi" formati
-- Baslik: Dark teal, buyuk punto, bold
-- ONEMLI: Baslikta coral highlight blogu KULLANMA, duz dark teal metin kullan
-- Govde: Dark teal veya koyu gri
+```javascript
+// Coral arka plan
+slide.background = { color: 'F4845F' };
 
-### Kart duzeni slide
-- Arka plan: Off-White
-- Kartlar: Beyaz, hafif golge, yuvarlak koseler (~12px)
-- Kart baslik: Dark teal, bold
-- Kart metin: Koyu gri
+// Dekoratif yarım daire - sol üst köşe (açık coral, düşük opaklık)
+// pptxgenjs'de arc/oval shape ile oluştur
+slide.addShape(pptxgen.shapes.OVAL, {
+  x: -1.5, y: -1, w: 5, h: 7,
+  fill: { color: 'F9A68A', transparency: 60 },
+  line: { color: 'F9A68A', transparency: 70, width: 1 }
+});
 
-### Veri/tablo slide
-- Tablo header: Koyu arka plan (#1B3A36 veya #4A4A4A), beyaz metin
-- Veri hucreleri: Beyaz, ince border
-- Degisim sutunu: Heat-map renklendirme
-- Insight paneli: Sag tarafta, ➔ ile baslayan maddeler
-- Kaynak notu: Sol alt, coral pill icinde beyaz metin ("Kaynak: ...")
+// Başlık - ortalanmış, beyaz, büyük
+slide.addText('CLS Kararlılığı Analizi', {
+  x: 0.5, y: 2.2, w: 12.3, h: 1.2,
+  fontSize: 44, fontFace: 'Bricolage Grotesque',
+  color: 'FFFFFF', bold: false, align: 'center'
+});
 
-### Kapatis slide
-- Arka plan: Coral (#F4845F)
-- "Tesekkurler" - beyaz, ortalanmis
+// Alt başlık
+slide.addText('vitra.com.tr - Mart 2026', {
+  x: 0.5, y: 3.6, w: 12.3, h: 0.5,
+  fontSize: 18, fontFace: 'Outfit',
+  color: 'FFFFFF', italic: true, align: 'center'
+});
+
+// Inbound logosu - alt orta
+slide.addText('inbound', {
+  x: 5.5, y: 6.5, w: 2.3, h: 0.6,
+  fontSize: 20, fontFace: 'Outfit',
+  color: 'FFFFFF', bold: true, align: 'center'
+});
+```
+
+### 2.2 Sunum akışı / agenda slide
+
+Referans: Image 2 - Split layout
+
+```javascript
+// Sol panel: Coral arka plan (~%40 genişlik)
+slide.addShape(pptxgen.shapes.RECT, {
+  x: 0, y: 0, w: 5.3, h: 7.5, fill: { color: 'F4845F' }
+});
+
+// Dekoratif yarım daire sol panelde
+slide.addShape(pptxgen.shapes.OVAL, {
+  x: -1, y: 0.5, w: 4, h: 5.5,
+  fill: { color: 'F9A68A', transparency: 60 }
+});
+
+// "SUNUM AKIŞI" büyük metin sol panelde
+slide.addText('SUNUM AKIŞI', {
+  x: 0.5, y: 2.5, w: 4.3, h: 1.5,
+  fontSize: 36, fontFace: 'Bricolage Grotesque',
+  color: 'FFFFFF', bold: false
+});
+
+// Inbound logosu sol alt
+slide.addText('inbound', {
+  x: 0.5, y: 6.5, w: 2, h: 0.5,
+  fontSize: 16, fontFace: 'Outfit', color: 'FFFFFF', bold: true
+});
+
+// Sağ panel: Off-white (slide arka planı zaten FAF8F5)
+// Numaralı liste
+const agendaItems = [
+  { num: '01', title: 'Genel Değerlendirme' },
+  { num: '02', title: 'Anasayfa Analizi' },
+  { num: '03', title: 'Ürün Sayfası Analizi' },
+  { num: '04', title: 'Kategori Sayfası Analizi' },
+  { num: '05', title: 'Özet ve Yol Haritası' }
+];
+agendaItems.forEach((item, i) => {
+  const y = 0.8 + (i * 0.9);
+  slide.addText([
+    { text: item.num + ' - ', options: { fontSize: 18, fontFace: 'Outfit', color: '1B3A36' } },
+    { text: item.title, options: { fontSize: 18, fontFace: 'Outfit', color: '1B3A36', bold: true } }
+  ], { x: 5.8, y: y, w: 6.5, h: 0.6 });
+});
+```
+
+### 2.3 Bölüm ayıracı (separator)
+
+Referans: Image 3 - Dark teal arka plan, büyük numara, coral çizgiler
+
+```javascript
+// Dark teal tam arka plan
+slide.background = { color: '1B3A36' };
+
+// Büyük numara - sol tarafta, koyu teal tonunda (arka planla kaynaşan)
+slide.addText('01', {
+  x: -0.5, y: 1.5, w: 4, h: 4,
+  fontSize: 160, fontFace: 'Bricolage Grotesque',
+  color: '2A4E48', bold: true
+});
+
+// Coral çizgi - başlık üstünde (kısa, yatay, yuvarlak uçlu)
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 5.5, y: 3.0, w: 0.8, h: 0.08,
+  fill: { color: 'F4845F' }, rectRadius: 0.04
+});
+
+// Başlık - beyaz, bold, orta-sağ
+slide.addText('Anasayfa Analizi', {
+  x: 4, y: 3.3, w: 8, h: 0.8,
+  fontSize: 36, fontFace: 'Bricolage Grotesque',
+  color: 'FFFFFF', bold: true, align: 'center'
+});
+
+// Coral çizgi - başlık altında
+slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+  x: 5.5, y: 4.3, w: 0.8, h: 0.08,
+  fill: { color: 'F4845F' }, rectRadius: 0.04
+});
+
+// Alt metin (opsiyonel - site adı)
+slide.addText('vitra.com.tr', {
+  x: 4, y: 4.5, w: 8, h: 0.5,
+  fontSize: 16, fontFace: 'Outfit',
+  color: 'FFFFFF', align: 'center'
+});
+```
+
+ÖNEMLİ: Desktop ve mobil için AYRI separator oluşturma. Aynı separator altında
+"Anasayfa Analizi" başlığıyla hem mobil hem desktop slaytları ilerler.
+
+### 2.4 İçerik slide
+
+Referans: Image 4, 5 - Yoğun içerikli sayfalar
+
+```javascript
+// Arka plan
+slide.background = { color: 'FAF8F5' };
+
+// Breadcrumb - sol üst, coral renk
+slide.addText('Anasayfa | Bulgu 1 - Tespit', {
+  x: 0.3, y: 0.2, w: 8, h: 0.4,
+  fontSize: 11, fontFace: 'Outfit',
+  color: 'F4845F', bold: true
+});
+
+// Başlık - dark teal, büyük, bold
+// NOT: Coral highlight bloğu KULLANMA, düz dark teal metin
+slide.addText('Geç Yüklenen CSS Dosyaları Kaydırması', {
+  x: 0.3, y: 0.6, w: 12.5, h: 0.8,
+  fontSize: 28, fontFace: 'Bricolage Grotesque',
+  color: '1B3A36', bold: true, margin: 0
+});
+```
+
+### 2.5 Skor kartı slide
+
+Referans: Image 6 - Büyük metrik, kartlar, screenshot + filmstrip
+
+```javascript
+// Büyük CLS değeri - sol tarafta
+slide.addText('0.391', {
+  x: 0.3, y: 1.5, w: 3, h: 1.5,
+  fontSize: 72, fontFace: 'Bricolage Grotesque',
+  color: 'D32F2F', bold: true, align: 'center'
+});
+slide.addText('Poor', {
+  x: 0.3, y: 3.0, w: 3, h: 0.4,
+  fontSize: 16, fontFace: 'Outfit',
+  color: 'D32F2F', bold: true, align: 'center'
+});
+
+// Metrik kartları - yanyana (Performance, LCP, FCP, TBT)
+const metrics = [
+  { label: 'Performance', value: '77/100' },
+  { label: 'LCP', value: '1.0 s' },
+  { label: 'FCP', value: '0.6 s' },
+  { label: 'TBT', value: '40 ms' }
+];
+metrics.forEach((m, i) => {
+  const x = 3.5 + (i * 2.5);
+  // Kart arka planı
+  slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
+    x: x, y: 1.2, w: 2.2, h: 1.8,
+    fill: { color: 'FFFFFF' },
+    line: { color: 'E0E0E0', width: 0.5 },
+    rectRadius: 0.1, shadow: { type: 'outer', blur: 3, opacity: 0.1 }
+  });
+  slide.addText(m.label, {
+    x: x, y: 1.3, w: 2.2, h: 0.4,
+    fontSize: 12, fontFace: 'Outfit', color: '4A4A4A', align: 'center'
+  });
+  slide.addText(m.value, {
+    x: x, y: 1.8, w: 2.2, h: 0.8,
+    fontSize: 32, fontFace: 'Bricolage Grotesque',
+    color: '1B3A36', bold: true, align: 'center'
+  });
+});
+```
 
 ---
 
-## 3. Yazi tipleri
+## 3. Screenshot ve filmstrip kuralları
 
-| Kullanim | Font | Agirlik | Punto |
+### Screenshot kalitesi
+
+PSI API iki tür görsel döndürür:
+1. `final-screenshot` - tam sayfa görüntüsü (~1200px genişlik, iyi kalite)
+2. `screenshot-thumbnails` - filmstrip kareleri (~120px genişlik, DÜŞÜK kalite)
+
+**KALİTE KURALI:**
+- Büyük sayfa görünümü için HER ZAMAN `final-screenshot` kullan
+- Filmstrip kareleri KÜÇÜK göster (genişlik max 2 inch/kare) - büyütme, bulanıklaşır
+- Mobil ve desktop için AYRI `final-screenshot` al (strategy=mobile ve strategy=desktop)
+- Screenshot'ları DİKDÖRTGEN göster, OVAL/DAİRE kırpma YAPMA
+
+### Filmstrip gösterimi
+
+```javascript
+// final-screenshot: Sol tarafta büyük (kaliteli)
+slide.addImage({
+  data: 'image/jpeg;base64,' + finalScreenshotBase64,
+  x: 0.3, y: 3.5, w: 5, h: 3.5
+});
+
+// Filmstrip: Sağ tarafta küçük kareler yan yana
+// Her kare MAX 2 inch genişlik - büyütme!
+const filmstrip = thumbnailItems.slice(0, 4); // max 4 kare
+filmstrip.forEach((item, i) => {
+  const x = 6 + (i * 1.8);
+  slide.addImage({
+    data: item.data, // zaten base64
+    x: x, y: 3.5, w: 1.6, h: 2.5
+  });
+  slide.addText(item.timing + 'ms', {
+    x: x, y: 6.1, w: 1.6, h: 0.3,
+    fontSize: 9, fontFace: 'Outfit', color: '4A4A4A', align: 'center'
+  });
+});
+```
+
+ÖNEMLİ: Filmstrip kareleri KÜÇÜK boyutta gösterilmeli. 120px genişliğindeki
+thumbnail'ı 4 inch'e büyütürsen BULANIK olur. Max 1.6-2 inch genişlik.
+
+### Mobil ve desktop screenshot ayrımı
+
+Her sayfa tipi için mobil VE desktop screenshot ayrı ayrı alınır ve
+aynı slayt veya ardışık slaytlarda YAN YANA gösterilir:
+
+```javascript
+// Sol: Desktop screenshot
+slide.addText('Desktop', { x: 0.3, y: 3.2, w: 5, h: 0.3, fontSize: 11, color: '4A4A4A' });
+slide.addImage({ data: desktopScreenshot, x: 0.3, y: 3.5, w: 5, h: 3 });
+
+// Sağ: Mobil screenshot (daha dar)
+slide.addText('Mobil', { x: 7, y: 3.2, w: 2.5, h: 0.3, fontSize: 11, color: '4A4A4A' });
+slide.addImage({ data: mobileScreenshot, x: 7, y: 3.5, w: 2.5, h: 3 });
+```
+
+---
+
+## 4. CLS etkilenen elementler - tek slide
+
+CLS'te kayma yaşatan tüm div'ler tek bir slide'da listelenir:
+
+```javascript
+// Başlık
+slide.addText('Sabitlenmesi Gereken Alanlar', {
+  x: 0.3, y: 0.6, w: 12.5, h: 0.6,
+  fontSize: 28, fontFace: 'Bricolage Grotesque', color: '1B3A36', bold: true
+});
+
+// Açıklama paragrafı
+slide.addText('Aşağıdaki elementlerin en-boy oranlarının sabitlenmesi veya ' +
+  'placeholder alanlarının belirlenmesi önerilmektedir.', {
+  x: 0.3, y: 1.3, w: 7, h: 0.6,
+  fontSize: 13, fontFace: 'Outfit', color: '4A4A4A'
+});
+
+// Element tablosu
+const tableRows = [
+  [
+    { text: 'Element', options: { bold: true, color: 'FFFFFF', fill: { color: '1B3A36' } } },
+    { text: 'Kayma Değeri', options: { bold: true, color: 'FFFFFF', fill: { color: '1B3A36' } } },
+    { text: 'Önerilen Düzeltme', options: { bold: true, color: 'FFFFFF', fill: { color: '1B3A36' } } }
+  ],
+  // Her etkilenen element bir satır
+  [
+    { text: 'div.hero-slider > img' },
+    { text: '0.351', options: { color: 'D32F2F' } },
+    { text: 'width="1200" height="675" ekle + aspect-ratio: 16/9' }
+  ]
+];
+slide.addTable(tableRows, {
+  x: 0.3, y: 2.2, w: 12.5,
+  fontSize: 11, fontFace: 'Outfit',
+  border: { color: 'E0E0E0', pt: 0.5 }
+});
+```
+
+---
+
+## 5. İçerik yoğunluğu ve detay kuralları
+
+Referans Image 4 ve 5 çok yoğun içerikli. SLAYTLAR BOŞ KALMAMALI.
+
+### Tespit slaytı dolu olmalı:
+- Sol kolon (~%55): Açıklama paragrafları (2-3), etkilenen elementler, CSS selector,
+  mevcut HTML kod kutusu
+- Sağ kolon (~%45): Screenshot, filmstrip veya etkilenen alanın zoom görünümü
+- Alt kısım: Kaynak badge + Excel referans notu
+
+### Etki slaytı dolu olmalı:
+- Kullanıcı etkisi paragrafı (3-4 cümle)
+- Metrik tablosu (küçük): hangi metrik ne kadar etkileniyor
+- Google referans kutusu (açık gri arka plan, web.dev linki)
+
+### Çözüm slaytı dolu olmalı:
+- Numaralı öneriler (her biri 2 satır açıklama)
+- Kod kutusu: mevcut vs önerilen (yan yana veya üst üste)
+- Alt kısım: Öncelik/Efor/Sorumluluk kartları + beklenen iyileşme
+
+### Insight madde formatı:
+➔ karakteri ile başlar, tire "-" veya bullet "•" KULLANMA.
+
+---
+
+## 6. Yazı tipleri
+
+| Kullanım | Font | Ağırlık | Punto |
 |---|---|---|---|
-| Kapak baslik | Bricolage Grotesque | Regular | 44-52 |
-| Separator baslik | Bricolage Grotesque | Bold | 36-44 |
-| Separator numara | Bricolage Grotesque | Bold | 120-180 |
-| Slide baslik | Bricolage Grotesque | Bold | 28-36 |
-| KPI buyuk sayi | Bricolage Grotesque | Bold | 36-48 |
-| Kart baslik | Bricolage Grotesque | SemiBold | 18-22 |
-| Breadcrumb | Outfit | SemiBold | 10-12 |
-| Govde metin | Outfit | Regular | 14-16 |
-| Tablo metin | Outfit | Regular | 11-13 |
-| Insight madde | Outfit | Regular | 13-15 |
-| Dipnot/kaynak | Outfit | Regular/SemiBold | 9-11 |
+| Kapak başlık | Bricolage Grotesque | Regular | 44 |
+| Separator başlık | Bricolage Grotesque | Bold | 36 |
+| Separator numara | Bricolage Grotesque | Bold | 160 |
+| Slide başlık | Bricolage Grotesque | Bold | 28 |
+| KPI büyük sayı | Bricolage Grotesque | Bold | 42-72 |
+| Breadcrumb | Outfit | SemiBold | 11 |
+| Gövde metin | Outfit | Regular | 13-14 |
+| Tablo metin | Outfit | Regular | 11 |
+| Insight madde | Outfit | Regular | 13 |
+| Kaynak notu | Outfit | SemiBold | 10 |
 
-Fallback font: Calibri (Bricolage/Outfit yuklu degilse).
-
----
-
-## 4. Uslup kurallari
-
-- Tire: Kisa tire (-) kullan, EM DASH (—) KULLANMA
-- Insight baslangici: ➔ karakteri + bosluk
-- Rakamlar insight'larda bold
-- Dusus: Kirmizi, artis: Yesil, vurgu: Coral
-- Profesyonel ve analitik ton, edilgen yapilar
+Fallback: Calibri (Bricolage/Outfit yüklü değilse).
 
 ---
 
-## 5. pptxgenjs teknik notlar
+## 7. Teknik notlar
 
 ### Slide boyutu
 ```javascript
 pres.layout = 'LAYOUT_WIDE'; // 13.33 x 7.5 inch
 ```
 
-### Renk tanimlari
-```javascript
-const COLORS = {
-  coral: 'F4845F',
-  darkTeal: '1B3A36',
-  offWhite: 'FAF8F5',
-  white: 'FFFFFF',
-  red: 'D32F2F',
-  green: '2E7D32',
-  darkGray: '4A4A4A',
-  gold: 'F5A623',
-  lightRed: 'FFCDD2',
-  lightGreen: 'C8E6C9',
-  separatorNum: '2A4E48'
-};
-```
+### EM DASH KULLANMA
+Tire: kısa tire (-) kullan. EM DASH (—) KESINLIKLE KULLANMA.
 
-### Metin stilleri
-```javascript
-const STYLES = {
-  coverTitle:   { fontSize: 48,  color: 'FFFFFF', fontFace: 'Bricolage Grotesque', bold: false },
-  sectionTitle: { fontSize: 40,  color: 'FFFFFF', fontFace: 'Bricolage Grotesque', bold: true  },
-  sectionNum:   { fontSize: 160, color: '2A4E48', fontFace: 'Bricolage Grotesque', bold: true  },
-  slideTitle:   { fontSize: 32,  color: '1B3A36', fontFace: 'Bricolage Grotesque', bold: true  },
-  breadcrumb:   { fontSize: 11,  color: 'F4845F', fontFace: 'Outfit',              bold: true  },
-  bodyText:     { fontSize: 14,  color: '1B3A36', fontFace: 'Outfit',              bold: false },
-  insightText:  { fontSize: 13,  color: '1B3A36', fontFace: 'Outfit',              bold: false },
-  tableHeader:  { fontSize: 12,  color: 'FFFFFF', fontFace: 'Outfit',              bold: true  },
-  tableData:    { fontSize: 11,  color: '1B3A36', fontFace: 'Outfit',              bold: false },
-  kpiNumber:    { fontSize: 42,  color: '1B3A36', fontFace: 'Bricolage Grotesque', bold: true  },
-  sourceNote:   { fontSize: 10,  color: 'FFFFFF', fontFace: 'Outfit',              bold: true  },
-  footnote:     { fontSize: 9,   color: 'D32F2F', fontFace: 'Outfit',              bold: false }
-};
-```
+### Coral highlight bloğu KULLANMA
+Başlıklarda turuncu arka plan + beyaz yazı bloğu YAPMA. Düz dark teal metin kullan.
 
-### Margin ve bosluk
-- Genel kenar boslugu: 0.5 inch
-- Breadcrumb: x=0.3, y=0.2
-- Icerik baslangic: x=0.5, y=0.8
-- Elementler arasi: 0.3-0.5 inch
-
-### Screenshot ve filmstrip gomu
-
-**DIKDORTGEN goster, DAIRE/OVAL kirpma YAPMA:**
-```javascript
-// DOGRU: Dikdortgen gorsel
-slide.addImage({
-  data: 'image/jpeg;base64,' + base64Data,
-  x: 0.5, y: 2.5, w: 4, h: 3
-});
-
-// YANLIS - YAPMA:
-// rounding: true → daire kirpma yapar
-// shape icinde oval/circle secme
-```
-
-**Filmstrip gosterimi:**
-3-5 kareyi yan yana dikdortgen olarak goster:
-```javascript
-filmstripItems.forEach((item, i) => {
-  const xPos = 0.5 + (i * 2.5);
-  slide.addImage({
-    data: 'image/jpeg;base64,' + item.data.split(',')[1],
-    x: xPos, y: 3.5, w: 2.2, h: 1.5
-  });
-  slide.addText(item.timing + 'ms', {
-    x: xPos, y: 5.1, w: 2.2, h: 0.3, fontSize: 10,
-    fontFace: 'Outfit', color: '4A4A4A', align: 'center'
-  });
-});
-```
-
-### Icerik yogunlugu
-
-**Slaytlarin alt yarisi BOS KALMAMALI.** Her slayt tipine gore doldurucu elementler:
-- Tespit: aciklama + element bilgisi + kod kutusu + screenshot
-- Etki: kullanici etkisi + metrik tablosu + Google referans kutusu
-- Cozum: oneriler + mevcut vs onerilen kod kutusu + oncelik/efor kartlari
+### TÜRKÇE KARAKTERLER
+Tüm metinlerde Türkçe özel karakterler (ç, ğ, ı, ö, ş, ü, İ, Ş) orijinal
+halleriyle kullanılır. ASCII'ye çevirme YAPILMAZ. pptxgenjs UTF-8 destekler.
 
 ### Kod kutusu stili
-
-Mevcut ve onerilen HTML/CSS kodlarini kutu icinde goster:
 ```javascript
-// Acik gri arka planli kod kutusu
 slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
-  x: 0.5, y: posY, w: 12, h: 1.5,
+  x: posX, y: posY, w: width, h: height,
   fill: { color: 'F5F5F5' },
   line: { color: 'E0E0E0', width: 0.5 },
   rectRadius: 0.1
 });
 slide.addText(codeString, {
-  x: 0.7, y: posY + 0.1, w: 11.6, h: 1.3,
-  fontSize: 11, fontFace: 'Consolas', color: '1B3A36', valign: 'top'
+  x: posX + 0.15, y: posY + 0.1, w: width - 0.3, h: height - 0.2,
+  fontSize: 10, fontFace: 'Consolas', color: '1B3A36', valign: 'top'
 });
 ```
 
 ### Kaynak badge
-
-Her icerik slaytinin sol alt kosesine:
 ```javascript
 slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
   x: 0.3, y: 6.8, w: 3.5, h: 0.35,
@@ -221,16 +410,4 @@ slide.addText('Kaynak: PageSpeed Insights API', {
   fontSize: 10, color: 'FFFFFF', fontFace: 'Outfit',
   bold: true, align: 'center', valign: 'middle'
 });
-```
-
-### Insight madde formati
-
-➔ karakteri ile baslar (tire "-" veya bullet "•" KULLANMA):
-```javascript
-slide.addText([
-  { text: '➔ ', options: { color: 'F4845F', bold: true } },
-  { text: 'Anasayfada toplam ', options: { color: '1B3A36' } },
-  { text: '6 CSS dosyasının', options: { color: '1B3A36', bold: true } },
-  { text: ' geç yüklenmekte olduğu tespit edilmiştir.', options: { color: '1B3A36' } }
-], { x: 0.5, y: posY, w: 12, h: 0.5, fontSize: 13, fontFace: 'Outfit' });
 ```

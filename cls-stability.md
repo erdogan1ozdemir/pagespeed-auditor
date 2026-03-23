@@ -1,12 +1,12 @@
-# Sub-skill 4: CLS Kararliligi
+# Sub-skill 4: CLS Kararlılığı
 
-Layout shift nedenleri, boyutsuz ogeler, animasyonlar, aspect-ratio, font kaymasi, ad/embed slotlari.
+Layout shift nedenleri, boyutsuz öğeler, animasyonlar, aspect-ratio, font kaymasi, ad/embed slotlari.
 
-## Lighthouse audit eslestirme
+## Lighthouse audit eşleştirme
 
 | Insight Audit ID | Kontrol alani |
 |---|---|
-| cls-culprits-insight | Layout shift'e neden olan ogeler, kayma buyuklugu |
+| cls-culprits-insight | Layout shift'e neden olan öğeler, kayma buyuklugu |
 | unsized-images | width/height olmayan img, video, iframe (diagnostic) |
 | non-composited-animations | GPU yerine CPU ile calisan animasyonlar (diagnostic) |
 
@@ -16,11 +16,11 @@ font-display kaymasi, 3rd party inject CLS etkisi.
 ## PSI API'den cekilecek veriler
 
 ```
-audits['cls-culprits-insight']         → shift eden elementler, degerler
-audits['unsized-images']               → boyutsuz gorsel listesi
+audits['cls-culprits-insight']         → shift eden elementler, değerler
+audits['unsized-images']               → boyutsuz görsel listesi
 audits['non-composited-animations']    → CPU animasyonlari
 audits['cumulative-layout-shift']      → CLS skoru
-audits['screenshot-thumbnails']        → filmstrip (shift karsilastirmasi icin)
+audits['screenshot-thumbnails']        → filmstrip (shift karşılaştırmasi icin)
 audits['final-screenshot']             → screenshot
 loadingExperience.metrics.CUMULATIVE_LAYOUT_SHIFT_SCORE → field CLS
 ```
@@ -49,7 +49,7 @@ const shifts = clsEntries.filter(e => !e.hadRecentInput).map(e => ({
 const totalCLS = shifts.reduce((sum, s) => sum + s.value, 0);
 ```
 
-**Boyutsuz oge taramasi:**
+**Boyutsuz öğe taramasi:**
 ```javascript
 const mediaTags = Array.from(document.querySelectorAll('img, video, iframe, canvas, svg'));
 const unsized = mediaTags.map(el => {
@@ -85,7 +85,7 @@ const adAudit = adSlots.map(el => ({
 }));
 ```
 
-**GIF kaydi stratejisi (CLS gorselestirme):**
+**GIF kaydi stratejisi (CLS görselestirme):**
 Chrome extension varsa coklu screenshot stratejisi kullan:
 1. gif_creator start_recording
 2. navigate → hemen screenshot
@@ -94,11 +94,11 @@ Chrome extension varsa coklu screenshot stratejisi kullan:
 5. wait 1s → screenshot
 6. gif_creator stop_recording → export
 
-Eger GIF yetersizse, filmstrip karelerini yan yana koyarak shift gorsellestir.
+Eger GIF yetersizse, filmstrip karelerini yan yana koyarak shift görsellestir.
 
 ## DataForSEO kontrolleri (Chrome yoksa, API varsa)
 
-on_page_instant_pages ile custom_js: boyutsuz oge taramasi (img/video/iframe width/height),
+on_page_instant_pages ile custom_js: boyutsuz öğe taramasi (img/video/iframe width/height),
 aspect-ratio CSS kontrolu, ad slot min-height kontrolu.
 on_page_lighthouse (full_data: true) ile CLS culprit detayi ve filmstrip kareleri.
 
@@ -106,21 +106,21 @@ on_page_lighthouse (full_data: true) ile CLS culprit detayi ve filmstrip kareler
 
 HTML'den: tum img/video/iframe taglerinde width, height attribute kontrolu.
 Inline style'da aspect-ratio. Ad container'larda min-height.
-Filmstrip kareleri (PSI API'den) arasindaki farklar ile CLS gorselestirme.
+Filmstrip kareleri (PSI API'den) arasindaki farklar ile CLS görselestirme.
 
 ---
 
 ## Bulgu kaliplari
 
-### Boyutsuz gorseller
-**Oneriler:** Ilgili img, video ve iframe elementlerine width ve height attribute'larinin
-eklenmesi tavsiye edilmektedir. CSS tarafinda aspect-ratio taniminin yapilmasi, attribute'lar
-olmasa bile alanin onceden ayrilmasini saglayacaktir. Container elementlere min-height
-tanimlanmasi da degerlendirilebilir.
+### Boyutsuz görseller
+**Öneriler:** İlgili img, video ve iframe elementlerine width ve height attribute'larinin
+eklenmesi tavsiye edilmektedir. CSS tarafinda aspect-ratio tanımının yapilmasi, attribute'lar
+olmasa bile alanin önceden ayrilmasini sağlayacaktır. Container elementlere min-height
+tanımlanmasi da değerlendirilebilir.
 ```html
 <!-- Mevcut durum -->
 <img src="hero.jpg" alt="...">
-<!-- Onerilen durum -->
+<!-- Önerilen durum -->
 <img src="hero.jpg" alt="..." width="1200" height="675">
 ```
 ```css
@@ -129,8 +129,8 @@ tanimlanmasi da degerlendirilebilir.
 **Ref:** https://web.dev/articles/optimize-cls
 
 ### Ad/embed slot kaymasi
-**Oneriler:** Reklam ve embed alanlarina min-height tanimlanmasi uygun olacaktir.
-Icerik yuklenene kadar placeholder veya skeleton UI kullanilmasi, kullanici deneyimini
+**Öneriler:** Reklam ve embed alanlarina min-height tanımlanmasi uygun olacaktır.
+İçerik yüklenene kadar placeholder veya skeleton UI kullanilmasi, kullanici deneyimini
 olumlu yonde etkileyecektir.
 ```css
 .ad-container { min-height: 250px; }
@@ -138,48 +138,58 @@ olumlu yonde etkileyecektir.
 **Ref:** https://web.dev/articles/optimize-cls#ads-embeds-and-iframes-without-dimensions
 
 ### Font kaymasi (FOUT)
-**Oneriler:** font-display degerinin optional olarak ayarlanmasi, font kaymasini
-tamamen onleyecektir. Fallback font icin metrik eslestirme (size-adjust, ascent-override,
-descent-override) tanimlanmasi da faydali olacaktir. Kullanilmayan font varyantlarinin
-kaldirilmasi dosya boyutunu ve yukleme suresini azaltacaktir.
+**Öneriler:** font-display değerinin optional olarak ayarlanmasi, font kaymasini
+tamamen önleyecektir. Fallback font için metrik eşleştirme (size-adjust, ascent-override,
+descent-override) tanımlanmasi da faydalı olacaktır. Kullanılmayan font varyantlarinin
+kaldırılması dosya boyutunu ve yükleme süresini azaltacaktır.
 **Ref:** https://web.dev/articles/font-display
 
-### Dinamik inject edilen icerik
-**Oneriler:** JavaScript ile inject edilen icerik alanlarinin onceden boyutlandirilmasi
-onerilmektedir. content-visibility: auto kullaniminin degerlendirilmesi, ozellikle uzun
+### Dinamik inject edilen içerik
+**Öneriler:** JavaScript ile inject edilen içerik alanlarinin önceden boyutlandirilmasi
+önerilmektedir. content-visibility: auto kullanımınin değerlendirilmesi, ozellikle uzun
 sayfalarda performans kazanci saglayabilir.
 **Ref:** https://web.dev/articles/content-visibility
 
 ### Non-composited animasyonlar
-**Oneriler:** Animasyonlarda transform ve opacity disindaki CSS ozelliklerinden kacinilmasi
-tavsiye edilmektedir. will-change: transform taniminin eklenmesi, GPU-accelerated
-animasyonlara gecis yapilmasi performansi iyilestirecektir.
+**Öneriler:** Animasyonlarda transform ve opacity disindaki CSS ozelliklerinden kaçınılmasi
+tavsiye edilmektedir. will-change: transform tanımının eklenmesi, GPU-accelerated
+animasyonlara gecis yapilmasi performansi iyileştirecektir.
 **Ref:** https://web.dev/articles/animations-guide
 
 ---
 
 ## Sunum slayt sablonu
 
-### Skor karti
-- CLS field degeri (good/needs improvement/poor)
-- Toplam shift sayisi + en buyuk shift degeri
-- Filmstrip (shift anlari isaretli)
+### Skor kartı
+- Desktop + mobil CLS değerleri yan yana (büyük metrik + kartlar)
+- Final-screenshot: desktop sol, mobil sağ (DİKDÖRTGEN, kaliteli)
+- Filmstrip: KÜÇÜK kareler (max 1.6 inch/kare), büyütme
 
-### Shift gorselestirme slayti
-- Filmstrip karelerinde shift oncesi/sonrasi karsilastirma
-- GIF (Chrome varsa) veya yan yana screenshot karsilastirmasi
+### Etkilenen tüm elementler - TEK SLAYT
 
-### Boyutsuz oge envanter slayti
-- Tablo: element, boyut durumu, above-fold mi, aspect-ratio var mi
-- Etkilenen alan screenshot ile isaretli
+Kayma yaşatan TÜM div/element'ler tek slayttta tablo halinde gösterilir:
+- Başlık: "Sabitlenmesi Gereken Alanlar"
+- Açıklama: "Aşağıdaki elementlerin en-boy oranlarının sabitlenmesi veya
+  placeholder alanlarının belirlenmesi önerilmektedir."
+- Tablo: Element (CSS selector) | Kayma Değeri | Boyut | Önerilen Düzeltme
+- Scroll öncesi kısımda ek div'ler varsa onların da en-boy oranları sabitlenmeli notu
 
-### Bulgu slaytlari (tespit → etki → cozum) her bulgu icin
+Bu slayt, IT ekibinin doğrudan task olarak kullanabileceği bir checklist görevi görür.
+
+### Shift görselleştirme slaytı
+- Filmstrip'te shift olan kareler arası fark
+- Desktop ve mobil ayrı gösterilir
+
+### Bulgu slaytları (tespit → etki → çözüm) her önemli bulgu için
+
+Her slayt DOLU olmalı - sol metin + sağ görsel kolon yapısında.
+Açıklamalar anlaşılır, somut ve aksiyon odaklı.
 
 ---
 
-## Excel sheet yapisi
+## Excel sheet yapısı
 
-Sheet adi: "CLS Kararliligi"
-Sutunlar: Sayfa Tipi | Cihaz | Bulgu | Element (selector) | Shift Degeri |
-Kayma Yonu (px) | Above-fold | width Attr | height Attr | aspect-ratio CSS |
-min-height | Onerilen Aksiyon | CLS Etkisi | Oncelik | Efor | Sorumluluk | Durum
+Sheet adı: "CLS Kararlılığı"
+Sütunlar: Sayfa Tipi | Cihaz | Bulgu | Element (selector) | Shift Değeri |
+Kayma Yönü (px) | Above-fold | width Attr | height Attr | aspect-ratio CSS |
+min-height | Önerilen Aksiyon | CLS Etkisi | Öncelik | Efor | Sorumluluk | Durum

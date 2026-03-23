@@ -1,36 +1,36 @@
 ---
 name: pagespeed-auditor
 description: >
-  Bir veya birden fazla URL icin PageSpeed Insights analizi yapip PPTX sunum ve destekleyici
-  Excel ciktisi ureten skill. Bagimsiz cagrilabilir 6 sub-skill icerir: render pipeline,
-  javascript yuku, LCP optimizasyonu, CLS kararliligi, INP etkilesim, kalite ve erisilebilirlik.
+  Bir veya birden fazla URL için PageSpeed Insights analizi yapip PPTX sunum ve destekleyici
+  Excel çıktısi üreten skill. Bağımsız cagrilabilir 6 sub-skill içerir: render pipeline,
+  javascript yuku, LCP optimizasyonu, CLS kararlılığı, INP etkileşim, kalite ve erişilebilirlik.
   Bu skill'i su durumlarda kullan: "pagespeed analiz et", "site hizi raporu hazirla",
   "LCP bak", "CLS sorunlari", "INP analiz et", "javascript audit yap", "accessibility kontrol et",
   "render pipeline", "sayfa hizi sunumu", "performans raporu", "core web vitals",
   "pagespeed sunum hazirla", "site hizi optimizasyonu", "web vitals analiz",
-  "erisilebilirlik raporu", "3rd party scriptler", "gorsel optimizasyonu",
+  "erişilebilirlik raporu", "3rd party scriptler", "görsel optimizasyonu",
   kullanici bir URL verip performans, hiz, CWV, Lighthouse veya PageSpeed ile ilgili herhangi
   bir analiz, rapor veya sunum istediginde bu skill tetiklenir. Tek bir sub-skill veya tam audit
-  istenebilir. Turkce, Ingilizce ve Almanca cikti destekler.
+  istenebilir. Turkce, Ingilizce ve Almanca çıktı destekler.
 ---
 
 # PageSpeed Auditor
 
-Site performansini analiz edip IT ekiplerine yonelik aksiyon odakli sunum ve rapor ureten skill.
+Site performansini analiz edip IT ekiplerine yonelik aksiyon odakli sunum ve rapor üreten skill.
 
-## Calisma modu: OTONOM
+## Çalışma modu: OTONOM
 
-Kullanici URL'leri ve (varsa) sub-skill secimini verdikten sonra tum is akisini otonom calistir.
-Ara adimlarda onay isteme - API cagrilarini yap, verileri topla, analiz et, ciktiyi uret.
+Kullanici URL'leri ve (varsa) sub-skill secimini verdikten sonra tum is akisini otonom çalıştır.
+Ara adimlarda onay isteme - API cagrilarini yap, verileri topla, analiz et, çıktıyi üret.
 
 **Izin istemeden yap:**
 - PSI API veya DataForSEO Lighthouse cagrilari
 - web_fetch ile HTML kaynak kodu cekme
 - Chrome DevTools kontrolu (varsa)
 - Screenshot ve filmstrip alma
-- Sunum ve Excel dosyasi olusturma
-- Reference dosyalarini okuma
-- Paket yukleme (pptxgenjs, openpyxl vb.)
+- Sunum ve Excel dosyası oluşturma
+- Reference dosyalarıni okuma
+- Paket yükleme (pptxgenjs, openpyxl vb.)
 - Google dokumantasyonu arastirma (web_search)
 
 **Yalnizca su durumlarda kullaniciya sor:**
@@ -40,7 +40,7 @@ Ara adimlarda onay isteme - API cagrilarini yap, verileri topla, analiz et, cikt
 
 ---
 
-## 1. Ortam algilama
+## 1. Ortam algılama
 
 Skill basinda ortami tespit et:
 
@@ -64,7 +64,7 @@ Chrome kontrol: tool_search ile "tabs_context_mcp" ara. Bulunamazsa Chrome yok.
 
 Sirasiyla kontrol et:
 1. DataForSEO MCP bagli mi? → on_page_lighthouse kullan, PSI key gerekmez
-2. Kullanici onceden key verdiyse → kullan
+2. Kullanici önceden key verdiyse → kullan
 3. Hicbiri yoksa → kullaniciya sor:
    "PSI API key gereklidir. Ucretsiz anahtar icin:
    https://developers.google.com/speed/docs/insights/v5/get-started
@@ -74,40 +74,40 @@ DataForSEO varsa tercih et - PSI key gerektirmez, full Lighthouse JSON dondurur.
 
 ---
 
-## 3. Sub-skill yonlendirme
+## 3. Sub-skill yönlendirme
 
 | # | Sub-skill | Tetikleyiciler | Reference |
 |---|-----------|----------------|-----------|
 | 1 | Render pipeline | "render pipeline", "TTFB", "sunucu hizi", "render-blocking", "cache" | references/render-pipeline.md |
 | 2 | JavaScript yuku | "javascript audit", "JS yuku", "3rd party", "script analizi" | references/javascript-burden.md |
-| 3 | LCP optimizasyonu | "LCP", "gorsel optimizasyonu", "largest contentful paint", "gorsel boyut" | references/lcp-optimization.md |
-| 4 | CLS kararliligi | "CLS", "layout shift", "sayfa kayiyor", "kayma" | references/cls-stability.md |
-| 5 | INP etkilesim | "INP", "etkilesim", "TBT", "tepki suresi", "DOM boyutu" | references/inp-interactivity.md |
-| 6 | Kalite ve Erisilebilirlik | "accessibility", "erisilebilirlik", "best practices", "alt text" | references/quality-accessibility.md |
+| 3 | LCP optimizasyonu | "LCP", "görsel optimizasyonu", "largest contentful paint", "görsel boyut" | references/lcp-optimization.md |
+| 4 | CLS kararlılığı | "CLS", "layout shift", "sayfa kayiyor", "kayma" | references/cls-stability.md |
+| 5 | INP etkileşim | "INP", "etkileşim", "TBT", "tepki süresi", "DOM boyutu" | references/inp-interactivity.md |
+| 6 | Kalite ve Erişilebilirlik | "accessibility", "erişilebilirlik", "best practices", "alt text" | references/quality-accessibility.md |
 
-"Tam audit", "full pagespeed", "tum metriklere bak" → 6 sub-skill sirasiyla calisir.
+"Tam audit", "full pagespeed", "tum metriklere bak" → 6 sub-skill sırasıyla çalışır.
 
-**Her sub-skill calistirilmadan once ilgili reference dosyasi okunmalidir.**
+**Her sub-skill çalıştırilmadan once ilgili reference dosyası okunmalidir.**
 
 ---
 
-## 4. Sayfa tipi algilama
+## 4. Sayfa tipi algılama
 
-Kullanici sadece domain verirse otomatik algila (maksimum 3 sayfa tipi):
+Kullanici sadece domain verirse otomatik algıla (maksimum 3 sayfa tipi):
 
 1. Anasayfa (domain root) her zaman dahil
 2. web_fetch ile anasayfa HTML'ini cek, navigasyon linklerinden sayfa tipleri bul:
    - E-ticaret tespiti: /product/, /p-, /urun/, /category/, /c-, /kategori/ patternleri
-   - Kurumsal tespiti: /hizmet/, /service/, /blog/, /icerik/ patternleri
-3. E-ticaret → anasayfa + urun sayfasi + kategori sayfasi
-4. Kurumsal → anasayfa + hizmet sayfasi + en onemli icerik sayfasi
-5. Kullanici spesifik URL verdiyse otomatik algilama yapma
+   - Kurumsal tespiti: /hizmet/, /service/, /blog/, /içerik/ patternleri
+3. E-ticaret → anasayfa + ürün sayfası + kategori sayfası
+4. Kurumsal → anasayfa + hizmet sayfası + en önemli içerik sayfası
+5. Kullanici spesifik URL verdiyse otomatik algılama yapma
 
 ---
 
 ## 5. Veri toplama
 
-Her URL icin mobil VE desktop ayri ayri analiz edilir.
+Her URL için mobil VE desktop ayri ayri analiz edilir.
 
 ### 5.1 PSI API cagrisi
 ```
@@ -127,7 +127,7 @@ Cekilecek veriler:
 - `lighthouseResult.audits['screenshot-thumbnails'].details.items` → Filmstrip (base64 array)
 - `lighthouseResult.categories` → Kategori skorlari
 
-Field data yoksa (yetersiz trafik) bunu sunumda acikca belirt.
+Field data yoksa (yetersiz trafik) bunu sunumda açıkça belirt.
 
 ### 5.2 HTML kaynak analizi
 
@@ -141,9 +141,9 @@ Chrome yoksa: web_fetch ile HTML cek, parse et
 **on_page_lighthouse:** PSI API alternatifi. full_data: true ile tam Lighthouse JSON dondurur.
 Screenshot, filmstrip, tum audit detaylari dahil. PSI API key gerektirmez.
 
-**on_page_instant_pages:** custom_js parametresiyle sayfada JS calistirabilir.
+**on_page_instant_pages:** custom_js parametresiyle sayfada JS çalıştırabilir.
 Chrome DevTools'taki gibi DOM tarama yapilabilir (img attribute kontrolu, script tarama,
-layout shift olcumu vb.). Claude Code ortaminda Chrome yokken en guclu alternatif budur.
+layout shift ölçümü vb.). Claude Code ortaminda Chrome yokken en guclu alternatif budur.
 ```
 Ornek: on_page_instant_pages(
   url: "https://example.com",
@@ -152,20 +152,20 @@ Ornek: on_page_instant_pages(
 )
 ```
 
-**on_page_content_parsing:** Heading yapisi, link yapisi, yapisal icerik analizi.
+**on_page_content_parsing:** Heading yapisi, link yapisi, yapisal içerik analizi.
 
 ---
 
 ## 6. Batch yonetimi
 
-- Istekleri siraya koy: URL1-mobile, URL1-desktop, URL2-mobile...
+- İstekleri sıraya koy: URL1-mobile, URL1-desktop, URL2-mobile...
 - PSI API cagrilari arasinda 3 saniye bekle
-- Basarisiz cagrida 1 kez tekrar dene, sonra DataForSEO'ya fallback
-- DataForSEO da basarisizsa "analiz edilemedi" olarak raporla
+- Başarısız cagrida 1 kez tekrar dene, sonra DataForSEO'ya fallback
+- DataForSEO da başarısızsa "analiz edilemedi" olarak raporla
 
 ---
 
-## 7. Cikti: PPTX sunum
+## 7. Çıktı: PPTX sunum
 
 Once pptx skill'ini oku: `view /mnt/skills/public/pptx/SKILL.md` ve `view /mnt/skills/public/pptx/pptxgenjs.md`
 
@@ -174,46 +174,50 @@ Once pptx skill'ini oku: `view /mnt/skills/public/pptx/SKILL.md` ve `view /mnt/s
 Detayli tasarim rehberi icin: `view references/presentation-design.md`
 Temel kurallar:
 - Kapak/kapatis: Coral (#F4845F) arka plan, beyaz metin
-- Bolum ayiraclari: Dark Teal (#1B3A36), numarali, coral cizgi
-- Icerik slaytlari: Off-White (#FAF8F5) arka plan
-- Baslik fontu: Bricolage Grotesque (fallback: Calibri)
+- Bölüm ayiraclari: Dark Teal (#1B3A36), numarali, coral cizgi
+- İçerik slaytlari: Off-White (#FAF8F5) arka plan
+- Başlık fontu: Bricolage Grotesque (fallback: Calibri)
 - Govde fontu: Outfit (fallback: Calibri)
-- Basliklar: Duz dark teal metin, coral highlight blogu KULLANMA
-- Breadcrumb: sol ust, coral, "Bolum | Slayt" formati
+- Başlıklar: Duz dark teal metin, coral highlight blogu KULLANMA
+- Breadcrumb: sol ust, coral, "Bölüm | Slayt" formati
 - Heat-map tablo: kirmizi (#FFCDD2 + #D32F2F) negatif, yesil (#C8E6C9 + #2E7D32) pozitif
 - Insight: ➔ ile baslar
 - Tire: EM DASH (—) KULLANMA, kisa tire (-) kullan
 - Slide boyutu: LAYOUT_WIDE (13.33 x 7.5 inch)
 
-### Filmstrip ve screenshot gomu
+### Filmstrip ve screenshot
 
-PSI API'den gelen base64 JPEG sunuma gomulur. DIKDORTGEN gosterilir, DAIRE veya OVAL KIRPMA YAPMA:
-```javascript
-// DOGRU: Dikdortgen gorsel
-slide.addImage({
-  data: 'image/jpeg;base64,' + base64Data,
-  x: 0.5, y: 2.5, w: 4, h: 3
-});
+**SCREENSHOT KALİTE KURALI (ÇOK ÖNEMLİ):**
+PSI API iki tip görsel döndürür:
+- `final-screenshot` → tam sayfa (~1200px genişlik, İYİ kalite) → büyük göster
+- `screenshot-thumbnails` → filmstrip kareleri (~120px genişlik, DÜŞÜK kalite) → KÜÇÜK göster
 
-// YANLIS: Daire kirpma - YAPMA
-// rounding: true veya shape: 'OVAL' KULLANMA
-```
+Filmstrip karelerini büyütme - bulanıklaşır. Max 1.6-2 inch genişlik.
+Final-screenshot büyük gösterilebilir (5-6 inch genişlik).
 
-Filmstrip: 3-5 kareyi yan yana dikdortgen olarak goster. Her karenin altina zamanlama yaz (830ms, 4150ms vb.).
+Mobil ve desktop screenshot AYRI AYRI alınır (strategy=mobile, strategy=desktop).
+Aynı slayt veya ardışık slaytlarda yan yana gösterilir.
 
-### Icerik yogunlugu kurali (BOS ALAN BIRAKILMAZ)
+DİKDÖRTGEN göster, OVAL/DAİRE kırpma YAPMA (rounding: true KULLANMA).
 
-Slaytlarin alt yarisi BOS KALMAMALI. Icerik tum slayti kaplamali:
-- Metin yeterli degilse: gorsel, screenshot, tablo veya ek aciklama ekle
-- Tespit slaytinda: screenshot kaniti, filmstrip, etkilenen element gorseli ekle
-- Etki slaytinda: metrik karsilastirma tablosu, Google referans kutusu ekle
-- Cozum slaytinda: mevcut vs onerilen kod karsilastirmasi kutu icinde, efor/oncelik kartlari ekle
+Desktop ve mobil için AYRI separator oluşturma. Aynı sayfa tipi separator'ı altında
+hem desktop hem mobil analizi ilerler.
+
+Detaylı kod örnekleri: `view references/presentation-design.md` bölüm 3
+
+### İçerik yogunlugu kurali (BOS ALAN BIRAKILMAZ)
+
+Slaytlarin alt yarisi BOS KALMAMALI. İçerik tum slayti kaplamalı:
+- Metin yeterli degilse: görsel, screenshot, tablo veya ek açıklama ekle
+- Tespit slaytinda: screenshot kaniti, filmstrip, etkilenen element görseli ekle
+- Etki slaytinda: metrik karşılaştırma tablosu, Google referans kutusu ekle
+- Çözüm slaytinda: mevcut vs önerilen kod karşılaştırmasi kutu icinde, efor/öncelik kartlari ekle
 - Bos alan kaliyorsa: ek not, ipucu veya ilgili kaynak linki ekle
-- Her slaytta en az 1 gorsel element olmali (tablo, chart, screenshot, kod kutusu vb.)
+- Her slaytta en az 1 görsel element olmali (tablo, chart, screenshot, kod kutusu vb.)
 
 ### Kaynak badge
 
-Her icerik slaytinin sol alt kosesine coral pill badge ekle:
+Her içerik slaytinin sol alt kosesine coral pill badge ekle:
 ```javascript
 slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
   x: 0.3, y: 6.8, w: 3.5, h: 0.35, fill: { color: 'F4845F' }, rectRadius: 0.15
@@ -226,7 +230,7 @@ slide.addText('Kaynak: PageSpeed Insights API', {
 
 ### Kod bloklari
 
-Mevcut ve onerilen HTML/CSS kodlarini acik gri arka planli kutu icinde goster:
+Mevcut ve önerilen HTML/CSS kodlarini acik gri arka planli kutu icinde göster:
 ```javascript
 // Kod kutusu
 slide.addShape(pptxgen.shapes.ROUNDED_RECTANGLE, {
@@ -242,86 +246,90 @@ slide.addText(codeContent, {
 ### Sunum akisi (her sub-skill icin)
 
 ```
-KAPAK (coral)
-GENEL DEGERLENDIRME (skor tablosu + ozet paragraf)
-METRIK ACIKLAMA NOTU (IT ekibi icin)
+KAPAK (coral, dekoratif yarim daire, inbound logosu)
+SUNUM AKISI (split layout: sol coral, sag numarali liste)
+GENEL DEĞERLENDİRME (skor tablosu + özet paragraf)
+METRIK AÇIKLAMA NOTU (IT ekibi icin)
 
-HER SAYFA TIPI x CIHAZ ICIN (ornek: Anasayfa Mobil, Anasayfa Desktop, Urun Mobil...):
-  BOLUM AYIRACI (dark teal, numarali)
-  SKOR KARTI + FILMSTRIP
+HER SAYFA TIPI ICIN (Anasayfa, Ürün, Kategori):
+  BÖLÜM AYIRACI (dark teal, numarali, coral cizgi)
+  SKOR KARTI: Desktop + Mobil yan yana (buyuk metrik, kartlar, screenshot + filmstrip)
 
-  HER BULGU ICIN AYRI SLAYTLAR (tek slaytta birlestirme YAPMA):
-    TESPIT SLAYTI
-    ETKI SLAYTI
-    COZUM ONERISI SLAYTI
+  HER BULGU ICIN AYRI SLAYTLAR:
+    TESPİT SLAYTI (detayli açıklama + HTML referansi + screenshot)
+    ETKI SLAYTI (kullanici etkisi + metrik etkisi + Google ref)
+    ÇÖZÜM ÖNERİSİ SLAYTI (adimlar + kod ornegi + efor/öncelik)
 
-OZET AKSIYON TABLOSU (sayfa x bulgu matrisi)
-ONCELIK SIRALAMASI / YOL HARITASI
-KAPATIS (coral, tesekkurler)
+  CLS ICIN EK: Etkilenen tum elementler tek slaytta tablo halinde
+
+ÖZET AKSIYON TABLOSU (sayfa x bulgu matrisi)
+ÖNCELİK SIRALAMASI / YOL HARITASI
+KAPANIŞ (coral, tesekkurler, inbound logosu)
 ```
 
 ONEMLI KURALLAR:
-- Her sayfa tipi icin mobil ve desktop AYRI AYRI analiz edilir ve ayri bolumler halinde sunulur
-- Urun ve kategori sayfalarindaki bulgular da AYRI SLAYTLARDA gosterilir, tek slaytta birlestirilMEZ
-- Her bulgu icin 2-3 slayt kullanilir (tespit + etki + cozum). Basit bulgularda etki ve cozum birlesebilir
-- Ortak sorunlar (CSS, font vb.) her sayfada tekrarlanmaz, ilk goruldugu yerde detayli anlatilir,
-  diger sayfalarda "Anasayfa bolumunde detaylanan CSS optimizasyonu bu sayfa icin de gecerlidir" denir
+- Mobil ve desktop için AYRI separator oluşturma. Ayni sayfa tipi separator'i altinda
+  hem mobil hem desktop analizi ilerler. Skor kartinda ikisi yan yana gösterilir.
+- Her bulgu için ayri slaytlar (tek slaytta birlestirme YAPMA)
+- Basit bulgularda etki ve çözüm birlesebilir
+- Ortak sorunlar ilk goruldugu yerde detayli anlatilir, diger sayfalarda referans verilir
+- CLS analizinde kayma yasatan TUM elementler tek slayttta tablo halinde listelenir
+  (CSS selector + kayma değeri + önerilen düzeltme)
 
-### Tespit slayti icerigi (dolu olmali)
+### Tespit slayti içeriği (dolu olmali)
 
-Slayt iceriginin tum slayti kaplamasi icin su elementler bulunmali:
-- Breadcrumb (sol ust, coral)
-- Baslik (dark teal, buyuk)
-- 2-3 paragraf aciklama metni (➔ ile baslayan maddeler)
-- Etkilenen element bilgisi (CSS selector, coral metin)
-- Mevcut HTML kod kutusu (acik gri arka plan, monospace font)
-- Screenshot veya filmstrip kaniti (dikdortgen gorsel)
-- Kaynak badge (sol alt)
+Referans Image 4 gibi yogun. Sol-sag kolon yapisinda:
+- SOL (%55): Breadcrumb + başlık + 2-3 paragraf açıklama (➔ ile) + element bilgisi + kod kutusu
+- SAG (%45): Screenshot kaniti + etkilenen alanin zoom gorunumu
+- ALT: Kaynak badge + Excel referans notu
 
-### Etki slayti icerigi
+Açıklamalar anlasilabilir olmali - teknik olmayan kisiler de okudugunda anlayabilmeli.
+Kisa cumleler, somut ornekler, "bu ne demek" sorusuna cevap veren ifadeler.
+
+### Etki slayti içeriği
 
 - Kullanici deneyimi etkisi (en az 2-3 cumle)
 - Metrik etkisi (sayisal, tablolu)
 - Diger metriklere etkisi
 - Google referansi (web.dev linki, coral metin)
 
-### Cozum onerisi slayti icerigi
+### Çözüm önerisi slayti içeriği
 
-- Onerilen adimlar (numarali, her biri 2-3 cumle)
-- Mevcut vs onerilen kod karsilastirmasi (2 kod kutusu yan yana veya ust uste)
-- Beklenen iyilesme degeri (yesil renk)
-- Oncelik / Efor / Sorumluluk kartlari (3 kart yan yana)
-- Excel referans notu (spesifik: "dosya.xlsx, Sheet Adi sayfasi, satir X-Y")
+- Önerilen adimlar (numarali, her biri 2-3 cumle)
+- Mevcut vs önerilen kod karşılaştırmasi (2 kod kutusu yan yana veya ust uste)
+- Beklenen iyileşme değeri (yesil renk)
+- Öncelik / Efor / Sorumluluk kartlari (3 kart yan yana)
+- Excel referans notu (spesifik: "dosya.xlsx, Sheet Adi sayfası, satir X-Y")
 
 ---
 
-## 8. Cikti: Excel rapor
+## 8. Çıktı: Excel rapor
 
 Once xlsx skill'ini oku: `view /mnt/skills/public/xlsx/SKILL.md`
 
 ### Sheet yapisi
 
-**Sheet 1 - Ozet:**
-Tum sayfalarin tum metrik skorlari tablosu. Satirlar: sayfa tipi x cihaz. Sutunlar: metrikler.
+**Sheet 1 - Özet:**
+Tum sayfaların tum metrik skorlari tablosu. Satirlar: sayfa tipi x cihaz. Sutunlar: metrikler.
 
-**Sheet 2+ - Sub-skill detay (her aktif sub-skill icin ayri sheet):**
-| Sutun | Aciklama |
+**Sheet 2+ - Sub-skill detay (her aktif sub-skill için ayri sheet):**
+| Sutun | Açıklama |
 |-------|----------|
-| Sayfa Tipi | Anasayfa, Urun, Kategori |
+| Sayfa Tipi | Anasayfa, Ürün, Kategori |
 | Cihaz | Mobil, Desktop |
 | Bulgu | Tespit edilen durum |
 | Element | CSS selector |
-| Mevcut Deger | Mevcut HTML/attribute durumu |
-| Onerilen Deger | Onerilen degisiklik |
+| Mevcut Değer | Mevcut HTML/attribute durumu |
+| Önerilen Değer | Önerilen degisiklik |
 | Etkilenen Metrikler | LCP, CLS, INP vb. |
 | Metrik Etkisi | Sayisal etki (ornegin CLS +0.15) |
-| Oncelik | Yuksek / Orta / Dusuk |
-| Efor | Dusuk / Orta / Yuksek |
+| Öncelik | Yüksek / Orta / Düşük |
+| Efor | Düşük / Orta / Yüksek |
 | Sorumluluk | Frontend / Backend / DevOps |
 | Durum | (bos - IT ekibi dolduracak) |
 
 **Son sheet - Ham Veri:**
-PSI API'den gelen tum audit skorlari (audit ID + skor + deger).
+PSI API'den gelen tum audit skorlari (audit ID + skor + değer).
 
 ### Dosya isimlendirme
 ```
@@ -335,30 +343,54 @@ Tam audit: vitra.com.tr_pagespeed-audit_2026-03-18.pptx
 
 ## 9. Dil ve karakter
 
-- Varsayilan dil: Turkce (kullanici belirtmezse)
-- EN veya DE istenirse tum ciktilar o dilde
+- Varsayılan dil: Turkce (kullanici belirtmezse)
+- EN veya DE istenirse tum çıktılar o dilde
 
 ### TURKCE KARAKTER KURALI (EN KRITIK KURAL)
 
-Bu skill'in urettigi PPTX ve Excel dosyalarindaki TUM metinler Turkce ozel karakterleri
+Bu skill'in ürettigi PPTX ve Excel dosyalarındaki TUM metinler Turkce ozel karakterleri
 ORIJINAL HALLERIYLE icermek ZORUNDADIR. ASCII'ye cevirme KESINLIKLE YAPILMAZ.
 
 pptxgenjs ve openpyxl UTF-8'i sorunsuz destekler. Turkce karakter donusumu gerektiren
-HICBIR islem yapma. String'leri oldugu gibi kullan.
+HICBIR islem yapma. JavaScript string'lerinde Turkce karakterleri DOGRUDAN yaz.
 
-Dogru ornekler (sunumda boyle gorunmeli):
-- "Değerlendirme" ("Degerlendirme" DEGIL)
-- "Yükleme Süreci" ("Yukleme Sureci" DEGIL)
-- "Çözüm Önerisi" ("Cozum Onerisi" DEGIL)
-- "Öncelik: Yüksek" ("Oncelik: Yuksek" DEGIL)
-- "İyileştirme" ("Iyilestirme" DEGIL)
-- "Kararlılığı" ("Kararliligi" DEGIL)
-- "Görsel" ("Gorsel" DEGIL)
-- "Düşük" ("Dusuk" DEGIL)
-- "Ürün Sayfası" ("Urun Sayfasi" DEGIL)
+**JavaScript string ornekleri (DOGRU):**
+```javascript
+// DOGRU - Turkce karakterler doğrudan string icinde
+slide.addText('CLS Kararlılığı Analizi', { ... });
+slide.addText('Değerlendirme', { ... });
+slide.addText('Çözüm Önerisi', { ... });
+slide.addText('Öncelik: Yüksek', { ... });
+slide.addText('Ürün Sayfası', { ... });
+slide.addText('Geç Yüklenen CSS Dosyaları', { ... });
+slide.addText('İyileştirme Fırsatı', { ... });
+slide.addText('Düşük', { ... });
 
-Kontrol: cikti dosyasini olusturduktan sonra markitdown ile oku ve Turkce karakter
-icerip icermedigini dogrula. Tek bir bile ASCII-ye donusturulmus karakter varsa duzelt.
+// YANLIS - ASCII karşılıklari KULLANMA
+slide.addText('CLS Kararlılığı Analizi', { ... });  // YANLIS!
+slide.addText('Değerlendirme', { ... });              // YANLIS!
+slide.addText('Çözüm Önerisi', { ... });              // YANLIS!
+```
+
+**Slayt başlıklarinda Turkce karakter:**
+- "CLS Kararlılığı Analizi" (DOGRU) vs "CLS Kararlılığı Analizi" (YANLIS)
+- "Genel Değerlendirme" (DOGRU) vs "Genel Değerlendirme" (YANLIS)
+- "Çözüm Önerisi" (DOGRU) vs "Çözüm Önerisi" (YANLIS)
+- "Skor Kartı" (DOGRU) vs "Skor Karti" (YANLIS)
+- "Yükleme Süreci" (DOGRU) vs "Yükleme Süreçi" (YANLIS)
+- "Bölüm Ayıracı" (DOGRU) vs "Bölüm Ayiraci" (YANLIS)
+
+**Tablo başlıklarinda:**
+- "Sayfa", "Değer", "Durum", "Öncelik", "Çözüm", "Ürün", "Görsel", "İyileşme"
+
+**Insight metinlerinde:**
+- "➔ Yapılan incelemede..." (DOGRU) vs "➔ Yapilan incelemede..." (YANLIS)
+
+**Doğrulama adimi:** Çıktı dosyasıni oluşturduktan sonra:
+```bash
+python -m markitdown output.pptx | grep -P '[a-z]' | head -20
+```
+Eger "Değerlendirme", "Çözüm", "Öncelik" gibi ASCII karşılıklar varsa DÜZELT.
 
 ---
 
@@ -366,7 +398,7 @@ icerip icermedigini dogrula. Tek bir bile ASCII-ye donusturulmus karakter varsa 
 
 IT ekibine yonelik profesyonel danismanlik raporu tonu. Yumusak, kurumsal ve is birligi odakli.
 
-### Yasak ifadeler → dogru karsiliklari
+### Yasak ifadeler → dogru karşılıklari
 
 | YANLIS (kullanma) | DOGRU (kullan) |
 |---|---|
@@ -390,50 +422,50 @@ Her insight maddesi ➔ karakteri ile baslar (tire "-" veya bullet "•" KULLANM
   belirlediği 0.1 eşik değerinin üzerinde yer almaktadır.
 ```
 
-### Aciklama derinligi kurali
+### Açıklama derinligi kurali
 
 Her tespit slaytinda EN AZ su bilgiler olmali:
 - Ne tespit edildi (2-3 cumle)
 - Hangi element etkileniyor (CSS selector + boyut bilgisi)
-- Neden olusuyor (teknik aciklama, 2-3 cumle)
-- Mevcut HTML kodu (gercek sayfadan alinmis)
+- Neden olusuyor (teknik açıklama, 2-3 cumle)
+- Mevcut HTML kodu (gerçek sayfadan alinmis)
 
 Her etki slaytinda EN AZ su bilgiler olmali:
 - Kullanici deneyimi etkisi (3-4 cumle, somut senaryo)
-- Metrik etkisi (sayisal: "CLS'e +0.351 katki, toplam degerin %98'i")
+- Metrik etkisi (sayisal: "CLS'e +0.351 katki, toplam değerin %98'i")
 - Diger metriklere etkisi (varsa)
 - Google referansi (web.dev linki)
 
-Her cozum slaytinda EN AZ su bilgiler olmali:
-- 2-4 numarali oneri adimi (her biri 2-3 cumle aciklama)
-- Mevcut vs onerilen kod karsilastirmasi
-- Beklenen iyilesme degeri
-- Oncelik + efor + sorumluluk bilgisi
+Her çözüm slaytinda EN AZ su bilgiler olmali:
+- 2-4 numarali öneri adimi (her biri 2-3 cumle açıklama)
+- Mevcut vs önerilen kod karşılaştırmasi
+- Beklenen iyileşme değeri
+- Öncelik + efor + sorumluluk bilgisi
 
 ---
 
-## 11. Before / After karsilastirma
+## 11. Before / After karşılaştırma
 
-1. Kullanicidan onceki Excel/PPTX dosyasini ayri dizine yuklemesini iste
-2. Onceki dosyayi oku (markitdown veya openpyxl)
-3. Ayni URL'ler ve sub-skill'ler icin yeni analiz calistir
-4. Karsilastirma sunumu:
-   - Her bulgu icin "Onceki → Simdiki" karsilastirmasi
+1. Kullanicidan önceki Excel/PPTX dosyasıni ayri dizine yüklemesini iste
+2. Önceki dosyayi oku (markitdown veya openpyxl)
+3. Ayni URL'ler ve sub-skill'ler için yeni analiz çalıştır
+4. Karşılaştırma sunumu:
+   - Her bulgu için "Önceki → Simdiki" karşılaştırmasi
    - Iyilesen: yesil, kotulusen: kirmizi
-   - "Onerilen X uygulanmis, CLS 0.24'ten 0.09'a dusmus" gibi yorumlar
-5. Dosya adi: [domain]_[subskill]_karsilastirma_[tarih].pptx
+   - "Önerilen X uygulanmış, CLS 0.24'ten 0.09'a dusmus" gibi yorumlar
+5. Dosya adi: [domain]_[subskill]_karşılaştırma_[tarih].pptx
 
 ---
 
 ## 12. Lighthouse versiyon dayanikliligi
 
-Audit ID'leri reference dosyalarinda merkezi tutulur.
-Bilinmeyen ID gelirse: mevcut ID'leri JSON'dan listele, en yakin eslesen insight audit'i kullan.
+Audit ID'leri reference dosyalarında merkezi tutulur.
+Bilinmeyen ID gelirse: mevcut ID'leri JSON'dan listele, en yakin eşleşen insight audit'i kullan.
 Sunumda "Lighthouse [versiyon] ile analiz edilmistir" belirt.
 
 ---
 
-## 13. Bagimliliklar
+## 13. Bağımlılıklar
 
 ```bash
 npm install -g pptxgenjs 2>/dev/null
@@ -441,5 +473,5 @@ pip install openpyxl --break-system-packages 2>/dev/null
 pip install "markitdown[pptx]" --break-system-packages 2>/dev/null
 ```
 
-Sunum olusturma icin: view /mnt/skills/public/pptx/SKILL.md ve view /mnt/skills/public/pptx/pptxgenjs.md
-Excel olusturma icin: view /mnt/skills/public/xlsx/SKILL.md
+Sunum oluşturma icin: view /mnt/skills/public/pptx/SKILL.md ve view /mnt/skills/public/pptx/pptxgenjs.md
+Excel oluşturma icin: view /mnt/skills/public/xlsx/SKILL.md
